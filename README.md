@@ -1,5 +1,5 @@
 # traventure-app-bt3103
-Our team is working on a final project for BT3103 module. We are building a travel planning app called Traventure. 
+Our team is working on a final project for BT3103 module. We are building a travel planning app called Traventure. Test
 
 ## Recommended IDE Setup
 

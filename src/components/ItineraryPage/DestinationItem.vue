@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="item-wrapper">
+    <div class="item-wrapper">
+        <div class="destination-wrapper">
             <div class="destination-title-wrapper">
                 <div>
                     <font-awesome-icon icon="fa-solid fa-location-pin" />
@@ -18,6 +18,10 @@
                 suscipit vitae mollitia. Consectetur qui officiis tempore numquam.
             </p>
         </div>
+
+        <div class="destination-image-wrapper">
+            <img src="../../assets/images/destination-item-image.jpg" alt="destination-item-image">
+        </div>
     </div>
 </template>
 
@@ -29,12 +33,32 @@ library.add(faLocationPin, faTrash)
 </script>
 
 <style scoped>
+
 .item-wrapper {
-    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+    margin: 1em;
+}
+
+.destination-image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.destination-image-wrapper img {
+    width: 250px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.destination-wrapper {
+    width: 70%;
     height: 132px;
     background: var(--light-grey-primary);
     border-radius: 10px;
-    margin: 1em;
     padding: 1em
 }
 

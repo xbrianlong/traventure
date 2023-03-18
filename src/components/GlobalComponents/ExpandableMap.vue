@@ -16,4 +16,9 @@
     height: 90%;
     box-shadow: inset 7px 0 8px -7px var(--dark-grey-primary);
 }
+
+/* h1 margin for fomatting */
+h1 {
+    margin-left: 1em;
+}
 </style>

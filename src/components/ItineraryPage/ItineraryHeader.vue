@@ -1,5 +1,6 @@
 <template>
     <div class="header-wrapper">
+        <font-awesome-icon icon="fa-solid fa-map" class="expand-map-button"/>
         <div class="image-wrapper">
             <img src="../../assets/images/itinerary-header-image.jpg" alt="header-image">
         </div>
@@ -20,9 +21,9 @@
 
 <script setup>
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPen, faLink } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faLink, faMap } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faPen, faLink)
+library.add(faPen, faLink, faMap)
 
 </script>
 
@@ -89,6 +90,16 @@ library.add(faPen, faLink)
   justify-content: space-evenly;
   align-items: center;
   margin-right: 1em;
+}
+
+.expand-map-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    color: var(--white-background-primary);
+    cursor: pointer;
 }
 
 </style>

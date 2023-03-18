@@ -1,6 +1,8 @@
 <template>
     <div class="view">
-        <ExpandableMap />
+        <!-- Uncomment to test page -->
+        <!-- <ExpandableMap />
+        <LocationCard />
         <ItineraryHeader />
         <DestinationItem />
         <DestinationItem />
@@ -10,9 +12,7 @@
         <DestinationItem />
         <DestinationItem />
         <DestinationItem />
-        <DestinationItem />
-
-
+        <DestinationItem /> -->
     </div>
     <RouterView />
 </template>
@@ -22,6 +22,7 @@ import { RouterView } from 'vue-router';
 import DestinationItem from '../components/ItineraryPage/DestinationItem.vue';
 import ExpandableMap from '../components/GlobalComponents/ExpandableMap.vue';
 import ItineraryHeader from '../components/ItineraryPage/ItineraryHeader.vue';
+import LocationCard from '../components/GlobalComponents/LocationCard.vue';
 
 </script>
 

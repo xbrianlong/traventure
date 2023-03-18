@@ -9,7 +9,7 @@
   --light-grey-primary: rgb(232, 232, 233);
   
   --nav-bar-width: 160px;
-  
+  --header-height: 75px
 }
 
 * {
@@ -33,10 +33,10 @@ body {
 } */
 
 .view {
-  margin: auto;
-  position: fixed;
-  width: calc(100% - var(--nav-bar-width));
+  position: absolute;
   left: var(--nav-bar-width);
+  top: var(--header-height);
+  width: calc(100% - var(--nav-bar-width));
 }
 
 a {

@@ -87,8 +87,4 @@ library.add(faPen, faLink)
   margin-right: 1em;
 }
 
-.fa-link {
-
-}
-
 </style>

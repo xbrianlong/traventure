@@ -20,6 +20,10 @@
     height: 75px;
     border-bottom-color: var(--light-grey-primary);
     border-bottom-style: solid;
+    position: fixed;
+    width: 100%;
+    background-color: white;
+    z-index: 10000;
 }
 .logo-wrapper {
     display: flex;

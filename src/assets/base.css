@@ -8,6 +8,8 @@
   --dark-grey-primary: rgba(29, 29, 29, 0.54);
   --light-grey-primary: rgb(232, 232, 233);
   
+  --nav-bar-width: 160px;
+  
 }
 
 * {
@@ -31,7 +33,12 @@ body {
 } */
 
 .view {
-  position: absolute;
-  left: 210px;
-  top: 80px;
+  margin: auto;
+  position: fixed;
+  width: calc(100% - var(--nav-bar-width));
+  left: var(--nav-bar-width);
+}
+
+a {
+  text-decoration: none;
 }

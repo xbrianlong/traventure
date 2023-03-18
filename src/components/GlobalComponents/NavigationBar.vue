@@ -57,8 +57,8 @@ library.add(faCompass, faBars, faCalendarDays, faHeart)
 
 nav {
   background: var(--white-background-primary);
-  border-right: 1px solid var(--dark-grey-primary);
-  width: 200px;
+  border-right: 1px solid var(--light-grey-primary);
+  width: var(--nav-bar-width);
   height: 100vh;
   position: absolute;
   overflow: hidden;
@@ -67,6 +67,10 @@ nav {
 a {
   text-decoration: none;
   color: var(--black-text-primary);
+}
+
+ul {
+  margin-top: -1em;
 }
 
 li {
@@ -79,8 +83,8 @@ li {
   height: 60px;
   display: flex;
   align-items: center;
-  padding-left: 20px;
-  margin-top: 15px;
+  padding-left: 10px;
+  margin-top: 8px;
 }
 
 .nav-icon {
@@ -88,9 +92,9 @@ li {
 }
 
 .nav-item {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
-  margin-left: 10px;
+  margin-left: 12px;
 }
 a.active .nav-wrapper,
 a.exact-active .nav-wrapper {

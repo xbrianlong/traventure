@@ -1,10 +1,13 @@
 <template>
     <div class="view">
-        <h1>This is Itinerary View</h1>
+        <ItineraryHeader />
     </div>
+    <RouterView />
 </template>
 
 <script setup>
+import ItineraryHeader from '../components/ItineraryPage/ItineraryHeader.vue';
+import { RouterView } from 'vue-router';
 
 </script>
 

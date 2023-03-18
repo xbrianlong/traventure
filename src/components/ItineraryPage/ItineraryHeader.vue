@@ -1,34 +1,39 @@
 <template>
-    <div class="itinerary-wrapper">
-        <div class="header-wrapper">
-            <div class="image-wrapper">
-                <img src="../../assets/images/itinerary-header-image.jpg" alt="header-image">
+    <div class="header-wrapper">
+        <font-awesome-icon icon="fa-solid fa-map" class="expand-map-button"/>
+        <div class="image-wrapper">
+            <img src="../../assets/images/itinerary-header-image.jpg" alt="header-image">
+        </div>
+        
+        <div class="header-details-wrapper">
+            <div class="header-title-wrapper">
+                <span class="header-title-text">Trip to Singapore</span>
+                <a href="#"><font-awesome-icon icon="fa-solid fa-pen" /></a>
             </div>
-            
-            <div class="header-details-wrapper">
-                <div class="header-title-wrapper">
-                    <span class="header-title-text">Trip to Singapore</span>
-                    <a href="#"><font-awesome-icon icon="fa-solid fa-pen" /></a>
-                </div>
 
-                <button class="share-button">
-                    <span>Share Itinerary</span>
-                    <font-awesome-icon icon="fa-solid fa-link" />
-                </button>
-            </div>
+            <button class="share-button">
+                <span>Share Itinerary</span>
+                <font-awesome-icon icon="fa-solid fa-link" />
+            </button>
         </div>
     </div>
 </template>
 
 <script setup>
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPen, faLink } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faLink, faMap } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faPen, faLink)
+library.add(faPen, faLink, faMap)
 
 </script>
 
 <style scoped>
+
+.header-wrapper {
+    width: calc(var(--expanded-map-width) + 1em);
+    height: 250px;
+    position: relative;
+}
 .image-wrapper {
     display: flex;
     justify-content: center;
@@ -38,7 +43,7 @@ library.add(faPen, faLink)
 
 .image-wrapper img {
     height: 250px;
-    width: 95vw;
+    width: 100%;
     object-fit: cover;
 }
 
@@ -85,6 +90,16 @@ library.add(faPen, faLink)
   justify-content: space-evenly;
   align-items: center;
   margin-right: 1em;
+}
+
+.expand-map-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    color: var(--white-background-primary);
+    cursor: pointer;
 }
 
 </style>

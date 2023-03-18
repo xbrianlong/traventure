@@ -1,0 +1,97 @@
+<template>
+    <div class="item-wrapper">
+        <div class="destination-wrapper">
+            <div class="destination-title-wrapper">
+                <div>
+                    <font-awesome-icon icon="fa-solid fa-location-pin" />
+                    <span class="destination-title">Marina Bay Sands</span>
+                </div>
+                <font-awesome-icon icon="fa-solid fa-trash" />
+            </div>
+
+            <p class="destination-description">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste dolor nihil, 
+                consequuntur laborum mollitia modi aliquam. Neque iste alias amet corrupti repellendus 
+                suscipit vitae mollitia. Consectetur qui officiis tempore numquam.
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste dolor nihil, 
+                consequuntur laborum mollitia modi aliquam. Neque iste alias amet corrupti repellendus 
+                suscipit vitae mollitia. Consectetur qui officiis tempore numquam.
+            </p>
+        </div>
+
+        <div class="destination-image-wrapper">
+            <img src="../../assets/images/destination-item-image.jpg" alt="destination-item-image">
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faLocationPin, faTrash } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faLocationPin, faTrash)
+</script>
+
+<style scoped>
+
+.item-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: var(--expanded-map-width);
+    margin: 1em;
+}
+
+.destination-image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1em;
+}
+
+.destination-image-wrapper img {
+    width: 200px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.destination-wrapper {
+    width: 80%;
+    height: 132px;
+    background: var(--light-grey-primary);
+    border-radius: 10px;
+    padding: 1em
+}
+
+.destination-title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.destination-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-left: 10px;
+}
+
+.destination-description {
+    margin-top: 10px;
+    font-size: 12px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+}
+
+.fa-location-pin {
+    width: 22px;
+    height: 22px;
+}
+
+.fa-trash {
+    cursor: pointer;
+}
+</style>

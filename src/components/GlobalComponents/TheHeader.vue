@@ -23,7 +23,7 @@
     position: fixed;
     width: 100%;
     background-color: white;
-    z-index: 10000;
+    z-index: 100;
 }
 .logo-wrapper {
     display: flex;

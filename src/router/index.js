@@ -27,7 +27,9 @@ const router = createRouter({
       name: 'wishlist',
       component: WishlistView
     }
-  ]
+  ],
+  linkActiveClass: 'active',
+  linkExactActiveClass: "exact-active"
 })
 
 export default router

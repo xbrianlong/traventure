@@ -33,4 +33,5 @@ body {
 .view {
   position: absolute;
   left: 210px;
+  top: 80px;
 }

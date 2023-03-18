@@ -36,7 +36,6 @@ library.add(faLocationPin, faTrash)
 
 .item-wrapper {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     width: 70%;
     margin: 1em;
@@ -46,10 +45,11 @@ library.add(faLocationPin, faTrash)
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 1em;
 }
 
 .destination-image-wrapper img {
-    width: 250px;
+    width: 200px;
     height: 130px;
     object-fit: cover;
     border-radius: 10px;

@@ -37,7 +37,8 @@ library.add(faLocationPin, faTrash)
 .item-wrapper {
     display: flex;
     align-items: center;
-    width: 70%;
+    justify-content: space-between;
+    width: var(--expanded-map-width);
     margin: 1em;
 }
 
@@ -55,7 +56,7 @@ library.add(faLocationPin, faTrash)
     border-radius: 10px;
 }
 .destination-wrapper {
-    width: 70%;
+    width: 80%;
     height: 132px;
     background: var(--light-grey-primary);
     border-radius: 10px;
@@ -88,5 +89,9 @@ library.add(faLocationPin, faTrash)
 .fa-location-pin {
     width: 22px;
     height: 22px;
+}
+
+.fa-trash {
+    cursor: pointer;
 }
 </style>

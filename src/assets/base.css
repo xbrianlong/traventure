@@ -9,14 +9,16 @@
   --light-grey-primary: rgb(232, 232, 233);
   
   --nav-bar-width: 160px;
-  --header-height: 75px
+  --header-height: 75px;
+
+  --expanded-map-width: 67%;
 }
 
 * {
   margin: 0; 
   padding: 0; 
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -37,6 +39,7 @@ body {
   left: var(--nav-bar-width);
   top: var(--header-height);
   width: calc(100% - var(--nav-bar-width));
+  height: calc(100% - var(--header-height));
 }
 
 a {

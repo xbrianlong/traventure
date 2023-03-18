@@ -1,21 +1,19 @@
 <template>
-    <div class="itinerary-wrapper">
-        <div class="header-wrapper">
-            <div class="image-wrapper">
-                <img src="../../assets/images/itinerary-header-image.jpg" alt="header-image">
+    <div class="header-wrapper">
+        <div class="image-wrapper">
+            <img src="../../assets/images/itinerary-header-image.jpg" alt="header-image">
+        </div>
+        
+        <div class="header-details-wrapper">
+            <div class="header-title-wrapper">
+                <span class="header-title-text">Trip to Singapore</span>
+                <a href="#"><font-awesome-icon icon="fa-solid fa-pen" /></a>
             </div>
-            
-            <div class="header-details-wrapper">
-                <div class="header-title-wrapper">
-                    <span class="header-title-text">Trip to Singapore</span>
-                    <a href="#"><font-awesome-icon icon="fa-solid fa-pen" /></a>
-                </div>
 
-                <button class="share-button">
-                    <span>Share Itinerary</span>
-                    <font-awesome-icon icon="fa-solid fa-link" />
-                </button>
-            </div>
+            <button class="share-button">
+                <span>Share Itinerary</span>
+                <font-awesome-icon icon="fa-solid fa-link" />
+            </button>
         </div>
     </div>
 </template>
@@ -29,6 +27,12 @@ library.add(faPen, faLink)
 </script>
 
 <style scoped>
+
+.header-wrapper {
+    width: calc(var(--expanded-map-width) + 1em);
+    height: 250px;
+    position: relative;
+}
 .image-wrapper {
     display: flex;
     justify-content: center;
@@ -38,7 +42,7 @@ library.add(faPen, faLink)
 
 .image-wrapper img {
     height: 250px;
-    width: 95vw;
+    width: 100%;
     object-fit: cover;
 }
 

@@ -59,9 +59,11 @@ nav {
   background: var(--white-background-primary);
   border-right: 1px solid var(--light-grey-primary);
   width: var(--nav-bar-width);
+  height: 100vh;
   position: fixed;
   top: var(--header-height);
   overflow: hidden;
+  z-index: 10000;
 }
 
 a {

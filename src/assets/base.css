@@ -29,3 +29,8 @@ body {
   min-height: 100vh;
   background-color: var(--white-background-primary);
 } */
+
+.view {
+  position: absolute;
+  left: 210px;
+}

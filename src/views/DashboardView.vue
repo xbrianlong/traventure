@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="view">
         <LocationCard />
     </div>
 </template>
@@ -9,5 +9,8 @@ import LocationCard from '../components/ExplorePage/LocationCard.vue';
 </script>
 
 <style scoped>
+.dashboard-view {
+    background-color: red;
+}
 
 </style>

@@ -5,12 +5,12 @@ import router from './router'
 import './assets/main.css'
 
 // Vuetify
+import { createVuetify } from 'vuetify'
 import 'vuetify/styles'
 import '@mdi/font/css/materialdesignicons.css'
-import { createVuetify } from 'vuetify'
+
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
-
 
 const vuetify = createVuetify({
   components,
@@ -18,7 +18,16 @@ const vuetify = createVuetify({
 })
 
 
+// FontAwesome
+
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+
+
+
 const app = createApp(App)
+
+app.component('font-awesome-icon', FontAwesomeIcon)
 
 app.use(router)
 app.use(vuetify)

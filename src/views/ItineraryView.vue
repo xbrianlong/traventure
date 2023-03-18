@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="view">
         <h1>This is Itinerary View</h1>
     </div>
 </template>

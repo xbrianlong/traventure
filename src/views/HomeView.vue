@@ -2,8 +2,8 @@
   <div class="home">
     <h1>This is a Home page</h1>
     <v-btn id="login-btn" @click="showOverlay = !showOverlay"> Login </v-btn>
-    <LoginModal
-      :overlay="showOverlay"
+    <Modal
+      :showModal="showOverlay"
       @close="showOverlay = !showOverlay"
       @click:outside="showOverlay = !showOverlay"
     />
@@ -11,10 +11,10 @@
 </template>
 
 <script setup>
-import LoginModal from '../components/LandingPage/LoginModal.vue'
+import Modal from '../components/LandingPage/Modal.vue'
 import { ref } from 'vue'
 
-const showOverlay = ref(true)
+const showOverlay = ref(false)
 </script>
 
 <style>

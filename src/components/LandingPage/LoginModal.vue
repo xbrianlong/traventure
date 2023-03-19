@@ -1,12 +1,12 @@
 <template>
   <!-- Overlay wrapper-->
-  <v-overlay scroll-strategy="block" class="align-center justify-center" activator="#login-btn">
+  <v-overlay scroll-strategy="block" class="align-center justify-center" :model-value="overlay">
     <!-- Login Modal Card-->
     <v-card class="login-modal rounded-xl">
       <!-- Close button -->
       <v-toolbar color="white">
         <v-spacer></v-spacer>
-        <v-btn icon>
+        <v-btn icon @click="$emit('close')">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
@@ -79,6 +79,9 @@
 import { ref } from 'vue'
 import GoogleLogo from '../CustomIcons/GoogleLogo.vue'
 import FacebookLogo from '../CustomIcons/FacebookLogo.vue'
+
+//Define props
+defineProps(['overlay'])
 
 const valid = ref(false)
 </script>

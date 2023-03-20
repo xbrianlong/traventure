@@ -14,6 +14,7 @@
       width="90%"
       rounded="pill"
       icon
+      @click="googleLogin"
     >
       <v-icon class="mr-md-8"><GoogleLogo /></v-icon>Log in with Google
     </v-btn>
@@ -24,6 +25,7 @@
       size="x-large"
       width="90%"
       rounded="pill"
+      @click="facebookLogin"
     >
       <v-icon class="mr-md-8" size="x-large"><FacebookLogo /></v-icon>Log in with Facebook
     </v-btn>
@@ -67,9 +69,45 @@ import GoogleLogo from '../../CustomIcons/GoogleLogo.vue'
 import FacebookLogo from '../../CustomIcons/FacebookLogo.vue'
 import { useField, useForm } from 'vee-validate'
 import { auth } from '../../../firebase'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  FacebookAuthProvider
+} from 'firebase/auth'
 import router from '../../../router'
 
+//Sign in with social login
+const googleProvider = new GoogleAuthProvider() // Google login via pop-up
+
+function googleLogin() {
+  signInWithPopup(auth, googleProvider)
+    .then(() => {
+      //Signed in
+      router.push('/dashboard')
+    })
+    .catch((error) => {
+      const errorCode = error.code
+      const errorMessage = error.message
+      console.error(errorCode, errorMessage)
+    })
+}
+
+const facebookProvider = new FacebookAuthProvider() // Facebook login via pop-up
+
+function facebookLogin() {
+  signInWithPopup(auth, facebookProvider)
+    .then(() => {
+      router.push('/dashboard')
+    })
+    .catch((error) => {
+      const errorCode = error.code
+      const errorMessage = error.message
+      console.error(errorCode, errorMessage)
+    })
+}
+
+//Sign in with email
 const { handleSubmit } = useForm({
   validationSchema: {
     email(value) {

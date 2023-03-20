@@ -1,13 +1,23 @@
 <template>
     <div class="view">
-        <h1>This is Dashboard View</h1>
+        <DashboardFeatured />
+        <DashboardTitle />
+        <FolderSection />
+        <TripSection />
     </div>
 </template>
 
 <script setup>
+import DashboardFeatured from '../components/DashboardPage/DashboardFeatured.vue';
+import DashboardTitle from '../components/DashboardPage/DashboardTitle.vue';
+import FolderSection from '../components/DashboardPage/FolderSection.vue';
+import TripSection from '../components/DashboardPage/TripSection.vue';
 
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.view {
+    padding: 30px 60px 0 60px
+}
 
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="view">
         <!-- Uncomment to test page -->
-        <!-- <ExpandableMap />
+        <ExpandableMap />
         <LocationCard />
         <ItineraryHeader />
         <DestinationItem />
@@ -12,7 +12,7 @@
         <DestinationItem />
         <DestinationItem />
         <DestinationItem />
-        <DestinationItem /> -->
+        <DestinationItem />
     </div>
     <RouterView />
 </template>

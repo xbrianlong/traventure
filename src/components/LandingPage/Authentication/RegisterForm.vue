@@ -44,6 +44,9 @@
 
 <script setup>
 import { useField, useForm } from 'vee-validate'
+import { auth } from '../../../firebase'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import router from '@/router'
 
 const { handleSubmit } = useForm({
   validationSchema: {
@@ -64,7 +67,7 @@ const { handleSubmit } = useForm({
       return 'Password needs to have 7-15 characters and contain at least one numeric digit and a special character'
     },
     confirmPassword(value) {
-      if (password.value.value == value) return true
+      if (password.value.value == value && value?.length > 0) return true
 
       return 'Passwords do not match'
     }
@@ -77,7 +80,17 @@ const password = useField('password')
 const confirmPassword = useField('confirmPassword')
 
 const onSubmit = handleSubmit((values) => {
-  alert(JSON.stringify(values, null, 2))
+  //alert(values.email)
+  createUserWithEmailAndPassword(auth, values.email, values.password)
+    .then(() => {
+      // Signed in
+      router.push('/dashboard')
+    })
+    .catch((error) => {
+      const errorCode = error.code
+      const errorMessage = error.message
+      console.error(errorCode, errorMessage)
+    })
 })
 </script>
 

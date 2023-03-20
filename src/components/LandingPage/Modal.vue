@@ -1,6 +1,11 @@
 <template>
   <!-- Overlay wrapper-->
-  <v-overlay scroll-strategy="block" class="align-center justify-center" :model-value="showModal">
+  <v-overlay
+    scroll-strategy="block"
+    class="align-center justify-center"
+    :model-value="showModal"
+    @click:outside="loginDefault"
+  >
     <!-- Login Modal Card-->
     <v-card class="modal rounded-xl">
       <!-- Close button -->
@@ -42,7 +47,7 @@ import RegisterForm from './Authentication/RegisterForm.vue'
 defineProps(['showModal'])
 
 //Toggle show login
-let showLogin = ref(true)
+const showLogin = ref(true)
 
 //Make sure login form is shown after form is closed
 function loginDefault() {

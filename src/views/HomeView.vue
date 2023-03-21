@@ -6,10 +6,7 @@
 </template>
 
 <script setup>
-import LocationCard from '../components/ExplorePage/LocationCard.vue';
-
+import LocationCard from '../components/ExplorePage/LocationCard.vue'
 </script>
 
-<style>
-
-</style>
+<style></style>

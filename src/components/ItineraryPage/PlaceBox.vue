@@ -2,15 +2,20 @@
   <div class="item-wrapper">
     <div class="detail-wrapper">
       <div class="image-wrapper">
-        <img src="../../assets/images/gardensbythebay.jpeg" alt="nearby-image" />
+        <img :src="image" alt="nearby-image" />
       </div>
-      <span class="detail-title">Gardens By The Bay</span>
+      <span class="detail-title">{{ name }}</span>
     </div>
-    <v-btn icon="mdi-plus" class="icon-button"></v-btn>
+    <v-btn icon="mdi-plus" class="icon-button" @click="$emit('addedNearby', name)"></v-btn>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+defineProps({
+  name: String,
+  image: String
+})
+</script>
 
 <style scoped>
 .item-wrapper {
@@ -18,8 +23,7 @@
   justify-content: space-between;
   align-items: center;
   border: solid var(--dark-grey-primary) 1px;
-  min-width: 18%;
-  width: 18%;
+  width: 215px;
   border-radius: 10px;
   padding: 5px;
 }
@@ -33,18 +37,21 @@
 .detail-wrapper {
   display: flex;
   align-items: center;
+  width: 100px;
 }
 
 .detail-title {
   font-weight: bold;
   margin-left: 10px;
-  font-size: 16px;
+  margin-right: 10px;
+  font-size: 14px;
 }
 
 .image-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 5px;
 }
 
 .image-wrapper img {

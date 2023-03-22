@@ -57,6 +57,7 @@
           :error-messages="password.errorMessage.value"
         ></v-text-field>
       </v-container>
+      <v-card-text class="text-left my-md-0 py-md-0 text-red">{{ firebaseErrorMsg }}</v-card-text>
       <v-btn variant="flat" size="x-large" type="submit" class="mt-2 login-btn">Login</v-btn>
     </v-form>
   </v-responsive>
@@ -65,6 +66,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import GoogleLogo from '../../CustomIcons/GoogleLogo.vue'
 import FacebookLogo from '../../CustomIcons/FacebookLogo.vue'
 import { useField, useForm } from 'vee-validate'
@@ -130,14 +132,28 @@ const onSubmit = handleSubmit((values) => {
   signInWithEmailAndPassword(auth, values.email, values.password)
     .then(() => {
       //Signed in
+      firebaseErrorMsg.value = ''
       router.push('/dashboard')
     })
     .catch((error) => {
       const errorCode = error.code
-      const errorMessage = error.message
-      console.error(errorCode, errorMessage)
+      //console.log(errorCode)
+
+      //Firebase authentication error handling
+      switch (errorCode) {
+        case 'auth/wrong-password':
+          firebaseErrorMsg.value = 'Wrong password'
+          break
+
+        case 'auth/user-not-found':
+          firebaseErrorMsg.value = 'User not found'
+          break
+      }
     })
 })
+
+//Error message for Firebase
+const firebaseErrorMsg = ref('')
 </script>
 
 <style scoped>

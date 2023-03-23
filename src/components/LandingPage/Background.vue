@@ -37,7 +37,7 @@ function mouseMove(e) {
 .background-img {
   width: 100vw;
   height: 100vh;
-  box-shadow: inset 300px 0px 400px 200px rgba(0, 0, 0, 0.7);
+  box-shadow: inset 300px 0px 400px 200px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   position: fixed;
 }

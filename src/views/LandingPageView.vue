@@ -46,6 +46,13 @@ setInterval(function () {
 }, 5000)
 </script>
 
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in
+  } else {
+    // User is signed out
+  }
+})
 <style scoped>
 #logo {
   position: absolute;

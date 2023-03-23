@@ -4,19 +4,19 @@
 </template>
 
 <script setup>
-import { auth } from '../firebase'
-import { signOut } from 'firebase/auth'
+import { getAuth, signOut } from 'firebase/auth'
 import router from '@/router'
 
+const auth = getAuth()
+
 async function logOut() {
-  try {
-    const user = auth.currentUser
-    const loggedOut = await signOut(auth, user)
-    console.log(loggedOut)
-    router.push({ name: 'LandingPage' })
-  } catch (error) {
-    console.log(error)
-  }
+  signOut(auth)
+    .then(() => {
+      router.push({ name: 'LandingPage' })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
 }
 </script>
 

@@ -50,7 +50,7 @@ watch(
   white-space: nowrap;
   width: 100%;
   border-right: 0.08em solid orange;
-  animation: typing 1s steps(12, end) forwards, blink 0.8s infinite;
+  animation: typing 1.5s steps(12, end) forwards, blink 0.8s infinite;
 }
 
 #remove-place-title {

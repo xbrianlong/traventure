@@ -39,7 +39,7 @@ watch(
   position: absolute;
   background: orange;
   z-index: 4;
-  animation: slide-progress 15s infinite;
+  animation: slide-progress 5s infinite;
 }
 
 @keyframes slide-progress {

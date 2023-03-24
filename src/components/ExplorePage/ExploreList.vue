@@ -29,7 +29,7 @@
   
   </script>
   
-  <style>
+  <style scoped>
     .card {
         display: flex;
         align-items: center;
@@ -37,11 +37,9 @@
         width: var(--expanded-map-width);
         height: 300px;
     }
+
     .view-all {
-    color: white;
-    background-color: black;
+        color: white;
+        background-color: black;
     }
-    /* .col-card {
-        padding: 0;
-    } */
   </style>

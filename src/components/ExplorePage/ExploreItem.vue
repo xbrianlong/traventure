@@ -116,6 +116,7 @@
     align-items: center;
     justify-content: space-between;
     width: var(--expanded-map-width);
+    height: 250px;
 }
 
 .v-btn--size-default {

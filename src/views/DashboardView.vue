@@ -1,6 +1,8 @@
 <template>
-  <h1>This is the Dashboard page</h1>
-  <v-btn @click="logOut">Log Out</v-btn>
+  <div class="dashboard">
+    <h1>This is the Dashboard page</h1>
+    <v-btn @click="logOut">Log Out</v-btn>
+  </div>
 </template>
 
 <script setup>
@@ -21,4 +23,8 @@ async function logOut() {
 </script>
 
 <style>
+.dashboard {
+  width: 100vw;
+  height: 100vh;
+}
 </style>

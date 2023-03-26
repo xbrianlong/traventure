@@ -14,11 +14,13 @@
     "vee-validate": "^4.8.3",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
+    "vue3-google-map": "^0.15.0",
     "vuetify": "^3.1.8"
   },
   "devDependencies": {
     "@mdi/font": "^7.1.96",
     "@rushstack/eslint-patch": "^1.2.0",
+    "@types/google.maps": "^3.52.3",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
     "@vue/eslint-config-prettier": "^7.1.0",

@@ -1,21 +1,33 @@
 <template>
     <div class="card-wrapper">
         <div class="image-wrapper">
-            <img src="../../assets/images/trip-card-image.jpg" alt="card-image">
+            <img :src=props.imageSource :alt=props.imageAlt>
         </div>
 
         <div class="card-details">
-            <h3 class="title">Trip to Japan</h3>
+            <h3 class="title">{{ props.title }}</h3>
             <div class="card-date-location-wrapper">
-                <span class="date">Feb 3 - Mar 15</span> 
+                <span class="date">{{ props.startDate }}</span>
+                <span class="divider">-</span>
+                <span class="date">{{ props.endDate }}</span>
                 <span class="divider">|</span>
-                <span class="place">3 places</span>
+                <span>{{ props.numPlaces }}</span>
+                <span class="place">places</span>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
+
+const props = defineProps([
+    'title',
+    'startDate',
+    'endDate',
+    'numPlaces',
+    'imageAlt',
+    'imageSource'
+])
 
 </script>
 
@@ -62,6 +74,9 @@
     margin-right: 8px;
 }
 
+.place {
+    margin-left: 5px;
+}
 
 
 </style>

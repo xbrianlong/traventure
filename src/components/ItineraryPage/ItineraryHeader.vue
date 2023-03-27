@@ -6,11 +6,8 @@
         </div>
         
         <div class="header-details-wrapper">
-            <div class="header-title-wrapper">
-                <span class="header-title-text">Trip to Singapore</span>
-                <a href="#"><font-awesome-icon icon="fa-solid fa-pen" /></a>
-            </div>
-
+            <ItineraryTitle />
+            
             <button class="share-button">
                 <span>Share Itinerary</span>
                 <font-awesome-icon icon="fa-solid fa-link" />
@@ -22,6 +19,7 @@
 <script setup>
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPen, faLink, faMap } from '@fortawesome/free-solid-svg-icons'
+import ItineraryTitle from './ItineraryTitle.vue';
 
 library.add(faPen, faLink, faMap)
 
@@ -53,28 +51,6 @@ library.add(faPen, faLink, faMap)
     align-items: center;
     position: relative;
     bottom: 4em
-}
-
-.header-title-wrapper {
-    color: var(--white-background-primary);
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 420px;
-    height: 60px;
-}
-
-.fa-pen {
-    height: 25px;
-    width: 25px;
-    color: white;
-    position: relative;
-    top: 1.5px
-}
-
-.header-title-text {
-    font-size: 40px;
-    font-weight: 600;
 }
 
 .share-button {

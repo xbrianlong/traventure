@@ -71,10 +71,6 @@ a {
   color: var(--black-text-primary);
 }
 
-ul {
-  margin-top: -1em;
-}
-
 li {
   display: flex;
   align-items: center;
@@ -86,7 +82,8 @@ li {
   display: flex;
   align-items: center;
   padding-left: 10px;
-  margin-top: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 .nav-icon {

@@ -1,7 +1,7 @@
 <template>
     <div class="card-wrapper">
         <div class="image-wrapper">
-            <img :src=props.imageSource :alt=props.imageAlt>
+            <img src="../../assets/images/trip-card-image.jpg" :alt=props.imageAlt>
         </div>
 
         <div class="card-details">
@@ -37,6 +37,11 @@ const props = defineProps([
     height: 300px;
     border: solid 1.5px var(--light-grey-primary);
     border-radius: 10px;
+    cursor: pointer;
+}
+
+.card-wrapper:hover {
+    transform: scale(1.01);
 }
 
 .image-wrapper {
@@ -53,6 +58,7 @@ const props = defineProps([
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
 }
+
 
 .card-details {
     padding: 10px;

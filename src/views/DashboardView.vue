@@ -2,15 +2,14 @@
     <div class="view">
         <DashboardFeatured />
         <DashboardTitle />
-        <FolderSection />
         <TripSection />
+        <ContextMenu />
     </div>
 </template>
 
 <script setup>
 import DashboardFeatured from '../components/DashboardPage/DashboardFeatured.vue';
 import DashboardTitle from '../components/DashboardPage/DashboardTitle.vue';
-import FolderSection from '../components/DashboardPage/FolderSection.vue';
 import TripSection from '../components/DashboardPage/TripSection.vue';
 
 </script>

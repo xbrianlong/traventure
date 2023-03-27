@@ -1,6 +1,6 @@
 <template>
     <div class="section-wrapper">
-        <h2>Trips</h2>
+        <h2 class="trip">Trips</h2>
 
 
         <div class="card-group">
@@ -42,5 +42,9 @@ const tripCards = ref([
     grid-template-columns: auto auto auto;
     row-gap: 50px;
     margin-top: 20px;
+}
+
+.trip {
+    font-size: 30px;
 }
 </style>

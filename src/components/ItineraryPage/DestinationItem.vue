@@ -3,10 +3,10 @@
         <div class="destination-wrapper">
             <div class="destination-title-wrapper">
                 <div>
-                    <font-awesome-icon icon="fa-solid fa-location-pin" />
+                    <font-awesome-icon icon="fa-solid fa-location-pin"/>
                     <span class="destination-title">{{ props.title }}</span>
                 </div>
-                <font-awesome-icon icon="fa-solid fa-trash" />
+                <font-awesome-icon icon="fa-solid fa-trash" @click="$emit('removeItem')"/>
             </div>
 
             <p class="destination-description">{{ props.description }}</p>
@@ -29,7 +29,7 @@ const props = defineProps([
     'title', 
     'description',
     'imageSource',
-    'imageAlt'
+    'imageAlt',
 ])
 
 </script>

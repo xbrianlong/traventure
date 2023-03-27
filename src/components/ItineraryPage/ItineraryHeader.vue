@@ -1,6 +1,6 @@
 <template>
     <div class="header-wrapper">
-        <font-awesome-icon icon="fa-solid fa-circle-chevron-left" class="expand-map-button" @click="$emit('toggleMap')" v-if="props.changeIcon"/>
+        <font-awesome-icon icon="fa-solid fa-circle-chevron-right" class="expand-map-button" @click="$emit('toggleMap')" v-if="props.changeIcon"/>
         <font-awesome-icon icon="fa-solid fa-map" class="expand-map-button" @click="$emit('toggleMap')" v-else/>
         <div class="image-wrapper">
             <img src="../../assets/images/itinerary-header-image.jpg" alt="header-image">
@@ -19,10 +19,10 @@
 
 <script setup>
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPen, faLink, faMap, faCircleChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faLink, faMap, faCircleChevronRight } from '@fortawesome/free-solid-svg-icons'
 import ItineraryTitle from './ItineraryTitle.vue';
 
-library.add(faPen, faLink, faMap, faCircleChevronLeft)
+library.add(faPen, faLink, faMap, faCircleChevronRight)
 
 const props = defineProps([
     'changeIcon'

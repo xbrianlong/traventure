@@ -1,6 +1,7 @@
 <template>
     <div class="header-wrapper">
-        <font-awesome-icon icon="fa-solid fa-map" class="expand-map-button"/>
+        <font-awesome-icon icon="fa-solid fa-circle-chevron-left" class="expand-map-button" @click="$emit('toggleMap')" v-if="props.changeIcon"/>
+        <font-awesome-icon icon="fa-solid fa-map" class="expand-map-button" @click="$emit('toggleMap')" v-else/>
         <div class="image-wrapper">
             <img src="../../assets/images/itinerary-header-image.jpg" alt="header-image">
         </div>
@@ -10,7 +11,7 @@
             
             <button class="share-button">
                 <span>Share Itinerary</span>
-                <font-awesome-icon icon="fa-solid fa-link" />
+                <font-awesome-icon icon="fa-solid fa-link"/>
             </button>
         </div>
     </div>
@@ -18,17 +19,20 @@
 
 <script setup>
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPen, faLink, faMap } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faLink, faMap, faCircleChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import ItineraryTitle from './ItineraryTitle.vue';
 
-library.add(faPen, faLink, faMap)
+library.add(faPen, faLink, faMap, faCircleChevronLeft)
+
+const props = defineProps([
+    'changeIcon'
+])
 
 </script>
 
 <style scoped>
 
 .header-wrapper {
-    width: calc(var(--expanded-map-width) + 1em);
     height: 250px;
     position: relative;
 }
@@ -36,7 +40,7 @@ library.add(faPen, faLink, faMap)
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
+    width: 100%;
 }
 
 .image-wrapper img {
@@ -56,7 +60,7 @@ library.add(faPen, faLink, faMap)
 .share-button {
   background-color: var(--white-background-primary);
   color: var(--black-text-primary);
-  width: 160px;
+  width: 180px;
   height: 42px;
   border-radius: 10px;
   font-size: 16px;
@@ -77,5 +81,10 @@ library.add(faPen, faLink, faMap)
     color: var(--white-background-primary);
     cursor: pointer;
 }
+
+.expand-map-button:hover {
+    opacity: 0.8;
+}
+
 
 </style>

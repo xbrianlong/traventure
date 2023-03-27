@@ -13,7 +13,7 @@
         </div>
 
         <div class="destination-image-wrapper">
-            <img :src=props.imageSource :alt=props.imageAlt>
+            <img src="../../assets/images/destination-item-image.jpg" :alt=props.imageAlt>
         </div>
     </div>
 </template>
@@ -40,7 +40,6 @@ const props = defineProps([
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: var(--expanded-map-width);
     margin: 1em;
 }
 
@@ -58,7 +57,7 @@ const props = defineProps([
     border-radius: 10px;
 }
 .destination-wrapper {
-    width: 80%;
+    width: 100%;
     height: 132px;
     background: var(--light-grey-primary);
     border-radius: 10px;

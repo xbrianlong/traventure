@@ -4,23 +4,16 @@
             <div class="destination-title-wrapper">
                 <div>
                     <font-awesome-icon icon="fa-solid fa-location-pin" />
-                    <span class="destination-title">Marina Bay Sands</span>
+                    <span class="destination-title">{{ props.title }}</span>
                 </div>
                 <font-awesome-icon icon="fa-solid fa-trash" />
             </div>
 
-            <p class="destination-description">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste dolor nihil, 
-                consequuntur laborum mollitia modi aliquam. Neque iste alias amet corrupti repellendus 
-                suscipit vitae mollitia. Consectetur qui officiis tempore numquam.
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste dolor nihil, 
-                consequuntur laborum mollitia modi aliquam. Neque iste alias amet corrupti repellendus 
-                suscipit vitae mollitia. Consectetur qui officiis tempore numquam.
-            </p>
+            <p class="destination-description">{{ props.description }}</p>
         </div>
 
         <div class="destination-image-wrapper">
-            <img src="../../assets/images/destination-item-image.jpg" alt="destination-item-image">
+            <img :src=props.imageSource :alt=props.imageAlt>
         </div>
     </div>
 </template>
@@ -30,6 +23,15 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faLocationPin, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faLocationPin, faTrash)
+
+
+const props = defineProps([
+    'title', 
+    'description',
+    'imageSource',
+    'imageAlt'
+])
+
 </script>
 
 <style scoped>

@@ -2,19 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import DashboardView from '../views/DashboardView.vue'
 import ItineraryView from '../views/ItineraryView.vue'
 import ExploreView from '../views/ExploreView.vue'
-import WishlistView from '../views/WishlistView.vue'
 import LandingPageView from '../views/LandingPageView.vue'
-import { auth } from '../firebase'
-
-// Auth guard
-const requireAuth = (to, from, next) => {
-  let user = auth.currentUser
-  if (!user) {
-    next({ name: 'LandingPage' })
-  } else {
-    next()
-  }
-}
+import { getCurrentUser } from '../firebase'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,7 +17,6 @@ const router = createRouter({
       path: '/dashboard',
       name: 'DashboardPage',
       component: DashboardView,
-      beforeEnter: requireAuth //route guard
     },
     {
       path: '/itinerary',
@@ -40,15 +28,24 @@ const router = createRouter({
       name: 'ExplorePage',
       component: ExploreView
     },
-    {
-      path: '/wishlist',
-      name: 'WishlistPage',
-      component: WishlistView,
-    },
 
   ],
   linkActiveClass: 'active',
   linkExactActiveClass: "exact-active"
+})
+
+router.beforeEach(async (to, from, next) => {
+  const user = await getCurrentUser()
+  if (!user && to.name !== 'LandingPage') {
+    next({ name: 'LandingPage' })
+    return
+  } else if (user && to.name == 'LandingPage') {
+    next({ name: 'Dashboard' })
+    return
+  } else {
+    next()
+    return
+  }
 })
 
 export default router

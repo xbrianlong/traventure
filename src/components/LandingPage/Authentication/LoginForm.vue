@@ -75,7 +75,9 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
-  FacebookAuthProvider
+  FacebookAuthProvider,
+  setPersistence,
+  browserLocalPersistence
 } from 'firebase/auth'
 import router from '../../../router'
 
@@ -83,7 +85,10 @@ import router from '../../../router'
 const googleProvider = new GoogleAuthProvider() // Google login via pop-up
 
 function googleLogin() {
-  signInWithPopup(auth, googleProvider)
+  setPersistence(auth, browserLocalPersistence)
+    .then(() => {
+      return signInWithPopup(auth, googleProvider)
+    })
     .then(() => {
       //Signed in
       router.push('/dashboard')
@@ -98,7 +103,10 @@ function googleLogin() {
 const facebookProvider = new FacebookAuthProvider() // Facebook login via pop-up
 
 function facebookLogin() {
-  signInWithPopup(auth, facebookProvider)
+  setPersistence(auth, browserLocalPersistence)
+    .then(() => {
+      return signInWithPopup(auth, facebookProvider)
+    })
     .then(() => {
       router.push('/dashboard')
     })
@@ -128,8 +136,14 @@ const { handleSubmit } = useForm({
 const email = useField('email')
 const password = useField('password')
 
+//Error message for Firebase
+const firebaseErrorMsg = ref('')
+
 const onSubmit = handleSubmit((values) => {
-  signInWithEmailAndPassword(auth, values.email, values.password)
+  setPersistence(auth, browserLocalPersistence)
+    .then(() => {
+      return signInWithEmailAndPassword(auth, values.email, values.password)
+    })
     .then(() => {
       //Signed in
       firebaseErrorMsg.value = ''
@@ -151,9 +165,6 @@ const onSubmit = handleSubmit((values) => {
       }
     })
 })
-
-//Error message for Firebase
-const firebaseErrorMsg = ref('')
 </script>
 
 <style scoped>

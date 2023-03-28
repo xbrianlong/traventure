@@ -25,11 +25,13 @@
     "vuetify": "^3.1.9",
     "vuetify-datetime-picker": "^2.1.1",
     "vuedraggable": "^4.1.0",
-    "vuetify-use-dialog": "^0.2.1"
+    "vuetify-use-dialog": "^0.2.1",
+    "vue3-google-map": "^0.15.0"
   },
   "devDependencies": {
     "@mdi/font": "^7.1.96",
     "@rushstack/eslint-patch": "^1.2.0",
+    "@types/google.maps": "^3.52.3",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
     "@vue/eslint-config-prettier": "^7.1.0",

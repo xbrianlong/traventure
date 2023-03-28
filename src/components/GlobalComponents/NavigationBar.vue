@@ -29,15 +29,7 @@
           </div>
         </RouterLink>
 
-        <RouterLink to="/wishlist">
-          <div class="nav-wrapper">
-            <li>
-              <font-awesome-icon icon="fa-solid fa-heart" class="nav-icon"/>
-              <span class="nav-item">Wishlist</span>
-            </li>
-          </div>
-        </RouterLink>
-
+        <v-btn @click="logOut" class="logout-btn">Log Out</v-btn>
       </ul>
     </nav>
   </div>  
@@ -48,9 +40,23 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCompass, faBars, faCalendarDays, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faCompass, faBars, faCalendarDays } from '@fortawesome/free-solid-svg-icons'
+import { signOut } from 'firebase/auth'
+import { auth } from '../../firebase'
+import router from '@/router'
+library.add(faCompass, faBars, faCalendarDays)
 
-library.add(faCompass, faBars, faCalendarDays, faHeart)
+async function logOut() {
+  signOut(auth)
+    .then(() => {
+      router.push({ name: 'LandingPage' })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
+
+
 </script>
 
 <style scoped>
@@ -100,4 +106,7 @@ a.exact-active .nav-wrapper {
   background-color: var(--light-grey-primary);
 }
 
+.logout-btn {
+  z-index: 100000;
+}
 </style>

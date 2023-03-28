@@ -1,4 +1,6 @@
 <template>
+    <TheHeader />
+    <NavigationBar />
     <div class="view">
         <ExpandableMap v-show="toggle"/>
         <div :class="toggle === true ? 'openMap' : 'closeMap'" >
@@ -10,6 +12,8 @@
 </template>
 
 <script setup>
+import TheHeader from '../components/GlobalComponents/TheHeader.vue';
+import NavigationBar from '../components/GlobalComponents/NavigationBar.vue';
 import { RouterView } from 'vue-router';
 import { ref } from 'vue';
 import ItineraryHeader from '../components/ItineraryPage/ItineraryHeader.vue';

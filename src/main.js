@@ -18,16 +18,14 @@ import VuetifyUseDialog from 'vuetify-use-dialog'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
+// FontAwesome
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const vuetify = createVuetify({
   components,
   directives,
   VueDatePicker
 })
-
-
-// FontAwesome
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // Create Vue App
 const app = createApp(App)

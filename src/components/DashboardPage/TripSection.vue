@@ -13,6 +13,7 @@
                 :numPlaces="tripCard.numPlaces"
                 :imageAlt="tripCard.imageAlt"
                 :imageSource="tripCard.imageSource"
+                @removeItem="removeItem(index)"
             />
         </div>
         
@@ -22,6 +23,7 @@
 <script setup>
 import TripCard from './TripCard.vue';
 import { ref } from 'vue';
+import { useConfirm, useSnackbar } from 'vuetify-use-dialog'
 
 const tripCards = ref([
     {title: 'Trip to Japan', startDate: 'Feb 3', endDate: 'Mar 15', numPlaces: '3', imageAlt: 'japan-image', imageSource: '../../assets/images/trip-card-image.jpg'},
@@ -29,6 +31,41 @@ const tripCards = ref([
     {title: 'Trip to Australia', startDate: 'Sept 11', endDate: 'Oct 3', numPlaces: '2', imageAlt: 'australia-image', imageSource: '../../assets/images/trip-card-image.jpg'},
     {title: 'Trip to Netherlands', startDate: 'May 27', endDate: 'July 19', numPlaces: '10', imageAlt: 'netherlands-image', imageSource: '../../assets/images/trip-card-image.jpg'}
 ])
+
+const createConfirm = useConfirm()
+const createSnackbar = useSnackbar()
+
+async function removeItem(index) {
+    try {
+        await createConfirm({ 
+            title: 'Confirm Deletion',
+            content: `Are you sure you want to delete ${tripCards.value[index].title} ?` ,
+            confirmationText: 'Delete',
+            cardProps: {
+                width: 500
+            },
+            confirmationButtonProps: {
+                color: 'red'
+            },
+            dialogProps: {
+                width: 500
+            }
+        })
+    }
+
+    catch {
+        (err) => console.log(err)
+    }
+
+    tripCards.value.splice(index, 1)
+        
+    createSnackbar({ 
+        text: 'Trip is deleted',
+        snackbarProps: {
+            timeout: 1000
+        }
+    })
+}
 
 </script>
 

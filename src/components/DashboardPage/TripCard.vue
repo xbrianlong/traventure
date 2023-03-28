@@ -5,7 +5,10 @@
         </div>
 
         <div class="card-details">
-            <h3 class="title">{{ props.title }}</h3>
+            <div class="card-top">
+                <h3 class="title">{{ props.title }}</h3>
+                <font-awesome-icon icon="fa-solid fa-trash" @click="$emit('removeItem')"/>
+            </div>
             <div class="card-date-location-wrapper">
                 <span class="date">{{ props.startDate }}</span>
                 <span class="divider">-</span>
@@ -19,6 +22,11 @@
 </template>
 
 <script setup>
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+
+
+library.add(faTrash)
 
 const props = defineProps([
     'title',
@@ -26,8 +34,9 @@ const props = defineProps([
     'endDate',
     'numPlaces',
     'imageAlt',
-    'imageSource'
+    'imageSource',
 ])
+
 
 </script>
 
@@ -59,6 +68,20 @@ const props = defineProps([
     border-top-left-radius: 10px;
 }
 
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fa-trash {
+    width: 20px;
+    height: 20px;
+}
+
+.fa-trash:hover {
+    color: red;
+}
 
 .card-details {
     padding: 10px;

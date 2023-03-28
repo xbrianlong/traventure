@@ -33,6 +33,7 @@ library.add(faPen, faTrash, faShareNodes)
     width: 220px;
     border-radius: 10px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    z-index: 1000;
 }
 
 .item-wrapper {

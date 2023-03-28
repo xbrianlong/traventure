@@ -95,4 +95,8 @@ const props = defineProps([
 .fa-trash {
     cursor: pointer;
 }
+
+.fa-trash:hover {
+    color: red;
+}
 </style>

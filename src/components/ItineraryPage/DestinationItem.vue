@@ -3,24 +3,17 @@
         <div class="destination-wrapper">
             <div class="destination-title-wrapper">
                 <div>
-                    <font-awesome-icon icon="fa-solid fa-location-pin" />
-                    <span class="destination-title">Marina Bay Sands</span>
+                    <font-awesome-icon icon="fa-solid fa-location-pin"/>
+                    <span class="destination-title">{{ props.title }}</span>
                 </div>
-                <font-awesome-icon icon="fa-solid fa-trash" />
+                <font-awesome-icon icon="fa-solid fa-trash" @click="$emit('removeItem')"/>
             </div>
 
-            <p class="destination-description">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste dolor nihil, 
-                consequuntur laborum mollitia modi aliquam. Neque iste alias amet corrupti repellendus 
-                suscipit vitae mollitia. Consectetur qui officiis tempore numquam.
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste dolor nihil, 
-                consequuntur laborum mollitia modi aliquam. Neque iste alias amet corrupti repellendus 
-                suscipit vitae mollitia. Consectetur qui officiis tempore numquam.
-            </p>
+            <p class="destination-description">{{ props.description }}</p>
         </div>
 
         <div class="destination-image-wrapper">
-            <img src="../../assets/images/destination-item-image.jpg" alt="destination-item-image">
+            <img src="../../assets/images/destination-item-image.jpg" :alt=props.imageAlt>
         </div>
     </div>
 </template>
@@ -30,6 +23,15 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faLocationPin, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faLocationPin, faTrash)
+
+
+const props = defineProps([
+    'title', 
+    'description',
+    'imageSource',
+    'imageAlt',
+])
+
 </script>
 
 <style scoped>
@@ -38,7 +40,6 @@ library.add(faLocationPin, faTrash)
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: var(--expanded-map-width);
     margin: 1em;
 }
 
@@ -56,7 +57,7 @@ library.add(faLocationPin, faTrash)
     border-radius: 10px;
 }
 .destination-wrapper {
-    width: 80%;
+    width: 100%;
     height: 132px;
     background: var(--light-grey-primary);
     border-radius: 10px;
@@ -93,5 +94,9 @@ library.add(faLocationPin, faTrash)
 
 .fa-trash {
     cursor: pointer;
+}
+
+.fa-trash:hover {
+    color: red;
 }
 </style>

@@ -24,7 +24,8 @@
     "vue-router": "^4.1.6",
     "vuetify": "^3.1.9",
     "vuetify-datetime-picker": "^2.1.1",
-    "vuedraggable": "^4.1.0"
+    "vuedraggable": "^4.1.0",
+    "vuetify-use-dialog": "^0.2.1"
   },
   "devDependencies": {
     "@mdi/font": "^7.1.96",

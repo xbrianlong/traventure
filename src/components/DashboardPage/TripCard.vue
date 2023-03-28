@@ -1,21 +1,42 @@
 <template>
     <div class="card-wrapper">
         <div class="image-wrapper">
-            <img src="../../assets/images/trip-card-image.jpg" alt="card-image">
+            <img src="../../assets/images/trip-card-image.jpg" :alt=props.imageAlt>
         </div>
 
         <div class="card-details">
-            <h3 class="title">Trip to Japan</h3>
+            <div class="card-top">
+                <h3 class="title">{{ props.title }}</h3>
+                <font-awesome-icon icon="fa-solid fa-trash" @click="$emit('removeItem')"/>
+            </div>
             <div class="card-date-location-wrapper">
-                <span class="date">Feb 3 - Mar 15</span> 
+                <span class="date">{{ props.startDate }}</span>
+                <span class="divider">-</span>
+                <span class="date">{{ props.endDate }}</span>
                 <span class="divider">|</span>
-                <span class="place">3 places</span>
+                <span>{{ props.numPlaces }}</span>
+                <span class="place">places</span>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+
+
+library.add(faTrash)
+
+const props = defineProps([
+    'title',
+    'startDate',
+    'endDate',
+    'numPlaces',
+    'imageAlt',
+    'imageSource',
+])
+
 
 </script>
 
@@ -25,6 +46,11 @@
     height: 300px;
     border: solid 1.5px var(--light-grey-primary);
     border-radius: 10px;
+    cursor: pointer;
+}
+
+.card-wrapper:hover {
+    transform: scale(1.01);
 }
 
 .image-wrapper {
@@ -40,6 +66,21 @@
     object-fit: cover;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fa-trash {
+    width: 20px;
+    height: 20px;
+}
+
+.fa-trash:hover {
+    color: red;
 }
 
 .card-details {
@@ -62,6 +103,9 @@
     margin-right: 8px;
 }
 
+.place {
+    margin-left: 5px;
+}
 
 
 </style>

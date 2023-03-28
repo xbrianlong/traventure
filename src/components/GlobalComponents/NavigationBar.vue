@@ -63,6 +63,7 @@ nav {
   position: fixed;
   top: var(--header-height);
   overflow: hidden;
+  z-index: 100;
 }
 
 a {

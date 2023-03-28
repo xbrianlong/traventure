@@ -16,7 +16,7 @@ const router = createRouter({
     {
       path: '/dashboard',
       name: 'DashboardPage',
-      component: DashboardView,
+      component: DashboardView
     },
     {
       path: '/itinerary',
@@ -27,11 +27,10 @@ const router = createRouter({
       path: '/explore',
       name: 'ExplorePage',
       component: ExploreView
-    },
-
+    }
   ],
   linkActiveClass: 'active',
-  linkExactActiveClass: "exact-active"
+  linkExactActiveClass: 'exact-active'
 })
 
 router.beforeEach(async (to, from, next) => {
@@ -40,7 +39,7 @@ router.beforeEach(async (to, from, next) => {
     next({ name: 'LandingPage' })
     return
   } else if (user && to.name == 'LandingPage') {
-    next({ name: 'Dashboard' })
+    next({ name: 'DashboardPage' })
     return
   } else {
     next()

@@ -10,6 +10,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@esbuild/win32-x64": "0.17.14",
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
     "@fortawesome/free-brands-svg-icons": "^6.3.0",
     "@fortawesome/free-regular-svg-icons": "^6.3.0",
@@ -22,11 +23,11 @@
     "vee-validate": "^4.8.3",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
+    "vue3-google-map": "^0.15.0",
+    "vuedraggable": "^4.1.0",
     "vuetify": "^3.1.9",
     "vuetify-datetime-picker": "^2.1.1",
-    "vuedraggable": "^4.1.0",
-    "vuetify-use-dialog": "^0.2.1",
-    "vue3-google-map": "^0.15.0"
+    "vuetify-use-dialog": "^0.2.1"
   },
   "devDependencies": {
     "@mdi/font": "^7.1.96",

@@ -1,7 +1,11 @@
 <template>
-  <div class="map">
+  <div class="map-wrapper">
     <!-- Manually set width and height via inline attributes -->
-    <GoogleMap :api-key="apiKey" style="width: 800px; height: 100vh" ref="mapRef"></GoogleMap>
+    <!-- <GoogleMap
+      :api-key="apiKey"
+      style="position: fixed; width: 29vw; height: 90vh"
+      ref="mapRef"
+    ></GoogleMap> -->
   </div>
 </template>
 
@@ -19,7 +23,7 @@ const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 const mapRef = ref(null)
 const props = defineProps(['placeId'])
 
-watch(
+/* watch(
   () => mapRef.value?.ready,
   (ready) => {
     if (ready) {
@@ -32,5 +36,16 @@ watch(
       })
     }
   }
-)
+) */
 </script>
+
+<style scoped>
+.map-wrapper {
+  position: fixed;
+  right: 0;
+  width: 29%;
+  height: 90%;
+  box-shadow: inset 7px 0 8px -7px var(--dark-grey-primary);
+  z-index: 100;
+}
+</style>

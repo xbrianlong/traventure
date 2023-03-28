@@ -1,10 +1,11 @@
 <template>
-    <div class="view">
+    <div class="view dashboard-view">
         <DashboardFeatured />
         <DashboardTitle />
         <FolderSection />
         <TripSection />
     </div>
+    <v-btn @click="logOut">Log Out</v-btn>
 </template>
 
 <script setup>
@@ -13,11 +14,25 @@ import DashboardTitle from '../components/DashboardPage/DashboardTitle.vue';
 import FolderSection from '../components/DashboardPage/FolderSection.vue';
 import TripSection from '../components/DashboardPage/TripSection.vue';
 
+import { auth } from '../firebase'
+import { signOut } from 'firebase/auth'
+import router from '@/router'
+
+async function logOut() {
+  try {
+    const user = auth.currentUser
+    const loggedOut = await signOut(auth, user)
+    console.log(loggedOut)
+    router.push({ name: 'LandingPage' })
+  } catch (error) {
+    console.log(error)
+  }
+}
 </script>
 
-<style scoped>
-.view {
-    padding: 30px 60px 0 60px
+<style>
+.dashboard-view {
+  padding: 30px 60px;
 }
 
 </style>

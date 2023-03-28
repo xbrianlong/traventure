@@ -2,7 +2,7 @@
   <div>
     <nav>
       <ul>
-        <RouterLink to="/">
+        <RouterLink to="/dashboard">
           <div class="nav-wrapper">
             <li>
               <font-awesome-icon icon="fa-solid fa-bars" class="nav-icon"/>
@@ -63,7 +63,7 @@ nav {
   position: fixed;
   top: var(--header-height);
   overflow: hidden;
-  z-index: 10000;
+  z-index: 100;
 }
 
 a {

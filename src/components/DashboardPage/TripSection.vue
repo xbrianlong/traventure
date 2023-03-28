@@ -13,7 +13,7 @@
                 :numPlaces="tripCard.numPlaces"
                 :imageAlt="tripCard.imageAlt"
                 :imageSource="tripCard.imageSource"
-                @removeItem="removeItem(index)"
+                @removeItem="removeItem(index)" 
             />
         </div>
         

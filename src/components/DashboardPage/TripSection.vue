@@ -51,20 +51,21 @@ async function removeItem(index) {
                 width: 500
             }
         })
+
+        createSnackbar({ 
+            text: `${tripCards.value[index].title} is deleted`,
+            snackbarProps: {
+                timeout: 1000
+            }
+        })
+        tripCards.value.splice(index, 1)
     }
 
     catch {
+        // Actions after clicking Cancel
         (err) => console.log(err)
     }
 
-    tripCards.value.splice(index, 1)
-        
-    createSnackbar({ 
-        text: 'Trip is deleted',
-        snackbarProps: {
-            timeout: 1000
-        }
-    })
 }
 
 </script>

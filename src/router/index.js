@@ -2,36 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LandingPageView from '../views/LandingPageView.vue'
 import AboutView from '../views/AboutView.vue'
 import DashboardView from '../views/DashboardView.vue'
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { getCurrentUser } from '../firebase'
-
-const auth = getAuth()
-
-// Auth guard
-/* const requireAuth = (to, from, next) => {
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      next({ name: 'LandingPage' })
-      return
-    } else {
-      next()
-      return
-    }
-  })
-} */
-
-// Landing page access to users
-/* const redirectToDashboard = (to, from, next) => {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      next({ name: 'Dashboard' })
-      return
-    } else {
-      next()
-      return
-    }
-  })
-} */
+import ItineraryView from '../views/ItineraryView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -53,6 +25,11 @@ const router = createRouter({
       name: 'Dashboard',
       component: DashboardView
       //beforeEnter: requireAuth //route guard
+    },
+    {
+      path: '/itinerary',
+      name: 'itinerary',
+      component: ItineraryView
     }
   ]
 })

@@ -34,11 +34,3 @@ app.use(router)
 app.use(vuetify)
 app.use(VuetifyUseDialog)
 app.mount('#app')
-
-
-
-
-
-
-
-

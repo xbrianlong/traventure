@@ -59,6 +59,7 @@ function loginDefault() {
 .modal {
   text-align: center;
   width: 480px;
+  height: auto;
 }
 
 .modal #toggle-nav {

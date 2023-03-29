@@ -5,6 +5,7 @@ import ExploreView from '../views/ExploreView.vue'
 import LandingPageView from '../views/LandingPageView.vue'
 import { getCurrentUser } from '../firebase'
 import ProfileView from '../views/ProfileView.vue'
+import StartPlanningView from '../views/StartPlanningView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,11 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: ProfileView
+    },
+    {
+      path: '/startplanning',
+      name: 'startplanning',
+      component: StartPlanningView
     }
   ],
   linkActiveClass: 'active',

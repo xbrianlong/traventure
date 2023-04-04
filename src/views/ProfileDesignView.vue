@@ -1,7 +1,8 @@
 <template>
   <TheHeader />
   <div class="view">
-    <h1 class="title">User Profile</h1>
+    <font-awesome-icon icon="fa-solid fa-circle-chevron-left" class="back-icon" />
+    <div class="page-title">User Profile</div>
     <div class="container">
       <div class="avatar"></div>
       <div class="details-wrapper">
@@ -14,7 +15,7 @@
       </div>
     </div>
     <div class="snackbar-wrapper">
-      <font-awesome-icon icon="fa-solid fa-circle-check" />
+      <font-awesome-icon icon="fa-regular fa-circle-check" class="snackbar-icon" />
       <div class="snackbar-text">Your profile is saved successfully !</div>
     </div>
   </div>
@@ -24,9 +25,10 @@
 import TheHeader from '../components/GlobalComponents/TheHeader.vue'
 import { ref } from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck } from '@fortawesome/free-regular-svg-icons'
+import { faCircleChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faCircleCheck)
+library.add(faCircleCheck, faCircleChevronLeft)
 
 const inputs = ref([
   {
@@ -48,8 +50,9 @@ const inputs = ref([
 </script>
 
 <style scoped>
-.title {
-  font-size: 35px;
+.page-title {
+  font-size: 30px;
+  font-weight: bold;
 }
 
 .container {
@@ -87,7 +90,7 @@ const inputs = ref([
 }
 .input-field {
   width: 800px;
-  height: 80px;
+  height: 70px;
   border-radius: 20px;
   border: solid 1px var(--dark-grey-primary);
 }
@@ -106,5 +109,40 @@ const inputs = ref([
 
 .save-btn:hover {
   cursor: pointer;
+}
+
+.snackbar-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  width: 18%;
+  border: solid 2px #4caf50;
+  background: #d0fbc1;
+  padding: 10px 15px;
+  border-radius: 10px;
+  position: fixed;
+  right: 10px;
+  top: calc(var(--header-height) + 15px);
+}
+
+.snackbar-text {
+  font-size: 15px;
+  margin-left: -5px;
+  color: #3e9241;
+  font-weight: bold;
+}
+
+.snackbar-icon {
+  width: 25px;
+  height: 25px;
+  color: #3e9241;
+}
+
+.back-icon {
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  left: 20px;
+  top: calc(var(--header-height) + 15px);
 }
 </style>

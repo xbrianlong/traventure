@@ -145,4 +145,8 @@ const inputs = ref([
   left: 20px;
   top: calc(var(--header-height) + 15px);
 }
+
+.back-icon:hover {
+  cursor: pointer;
+}
 </style>

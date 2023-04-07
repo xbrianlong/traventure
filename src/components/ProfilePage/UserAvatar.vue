@@ -1,5 +1,5 @@
 <template>
-  <div class="avatar-wrapper">
+  <div class="avatar">
     <v-avatar :size="size" @click="handleClick">
       <img :src="image" alt="User Avatar" />
     </v-avatar>
@@ -10,8 +10,8 @@
 <script setup>
 import { ref } from 'vue'
 
-const size = ref(250)
-const image = ref('https://via.placeholder.com/250')
+const size = ref(300)
+const image = ref('https://via.placeholder.com/300')
 
 const handleClick = () => {
   fileInput.value.click()

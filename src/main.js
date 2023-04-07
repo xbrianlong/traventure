@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createStore } from 'vuex'
 import App from './App.vue'
 import router from './router'
 
@@ -21,10 +22,30 @@ import '@vuepic/vue-datepicker/dist/main.css'
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+// Create Vuetify instance
 const vuetify = createVuetify({
   components,
   directives,
   VueDatePicker
+})
+
+// Create a new store instance
+const store = createStore({
+  state() {
+    return {
+      exploreData: {}
+    }
+  },
+  mutations: {
+    upload(state, payload) {
+      state.exploreData[payload.category] = payload.data
+    }
+  },
+  getters: {
+    getExploreData(state) {
+      return state.exploreData
+    }
+  }
 })
 
 // Create Vue App
@@ -33,4 +54,5 @@ app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(router)
 app.use(vuetify)
 app.use(VuetifyUseDialog)
+app.use(store)
 app.mount('#app')

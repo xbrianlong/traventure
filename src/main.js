@@ -33,17 +33,24 @@ const vuetify = createVuetify({
 const store = createStore({
   state() {
     return {
-      exploreData: {}
+      exploreData: {},
+      mapRef: null
     }
   },
   mutations: {
     upload(state, payload) {
       state.exploreData[payload.category] = payload.data
+    },
+    updateMapRef(state, newMapRef) {
+      state.mapRef = newMapRef
     }
   },
   getters: {
     getExploreData(state) {
       return state.exploreData
+    },
+    getMapRef(state) {
+      return state.mapRef
     }
   }
 })

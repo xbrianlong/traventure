@@ -12,7 +12,10 @@
           <p class="px-5 text-h3 font-weight-bold">Singapore</p>
         </v-col>
         <v-col>
-          <SearchBar id="search-bar" />
+          <div class="input-container">
+            <v-icon icon="mdi-magnify" id="icon" size="large" />
+            <input type="text" id="search-input" placeholder="Search" />
+          </div>
         </v-col>
       </v-row>
     </div>
@@ -42,15 +45,16 @@
 import TheHeader from '../components/GlobalComponents/TheHeader.vue'
 import NavigationBar from '../components/GlobalComponents/NavigationBar.vue'
 import GoogleMap from '../components/GlobalComponents/GoogleMap.vue'
-import SearchBar from '../components/GlobalComponents/SearchBar.vue'
+//import SearchBar from '../components/GlobalComponents/SearchBar.vue'
 import ExploreList from '../components/ExplorePage/ExploreList.vue'
 import ExploreItem from '../components/ExplorePage/ExploreItem.vue'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
 
 const store = useStore()
 
 const exploreData = computed(() => store.getters.getExploreData)
+const mapRef = computed(() => store.getters.getMapRef)
 
 // Initialize mapRef
 const pageString = ref('Explore')
@@ -72,6 +76,19 @@ function scrollToTop() {
 function toggle() {
   toggleViewAll.value = !toggleViewAll.value
 }
+
+watch(
+  () => mapRef.value,
+  (newVal) => {
+    if (newVal) {
+      var input = document.getElementById('search-input')
+      new mapRef.value.api.places.SearchBox(input, {
+        bounds: mapRef.value.map.getBounds(),
+        strictBounds: true
+      })
+    }
+  }
+)
 </script>
 
 <style scoped>
@@ -85,5 +102,41 @@ function toggle() {
 
 .explore-view-all .toggle-btn {
   cursor: pointer;
+}
+
+.input-container {
+  position: relative;
+  background-color: var(--light-grey-primary);
+  padding: 0px 10px 0px 25px;
+  border-radius: 10px;
+  line-height: 52px;
+}
+
+.input-container #icon {
+  position: absolute;
+  color: var(--dark-grey-primary);
+  align-items: center;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  padding-left: 35px;
+}
+
+.input-container #search-input {
+  line-height: normal;
+  display: inline-block;
+  vertical-align: middle;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--dark-grey-primary);
+  width: 100%;
+  padding-left: 40px;
+}
+
+.input-container input:focus {
+  outline: none;
 }
 </style>

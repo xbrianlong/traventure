@@ -40,6 +40,8 @@ watch(
         }
       })
 
+      store.commit('updateMapRef', mapRef)
+
       if (props.pageString == 'Explore') {
         var service = await new mapRef.value.api.places.PlacesService(mapRef.value.map)
 

@@ -1,5 +1,5 @@
 <template>
-  <v-card flat class="py-1 mx-0 card" rounded="0">
+  <v-card flat class="pa-2 mx-0 card" rounded="0">
     <v-container>
       <v-row class="d-flex py-0 my-0" align="center">
         <v-col md="8" lg="8" class="pa-2 pr-5 flex-grow-1 flex-shrink-0">
@@ -67,7 +67,7 @@
               <v-icon class="icon" icon="mdi-phone"></v-icon>
             </v-col>
             <v-col class="px-2 py-0 flex-grow-1 flex-shrink-0">
-              <a href="tel:+65 6688 8868">
+              <a>
                 <v-card-text class="pa-0">{{
                   props.placeDetails.formatted_phone_number
                     ? props.placeDetails.formatted_phone_number

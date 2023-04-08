@@ -13,6 +13,7 @@
             ref="fileInput"
             type="file"
             @input="handleFileChange"
+            @change="onChangeInput"
           >
       </div>
       <div v-if="userData" class="details-wrapper">
@@ -26,7 +27,7 @@
             :name="input.name"
             required
             clearable
-            @change="onChangeInput()"
+            @change="onChangeInput"
             >
         </div>
 
@@ -52,6 +53,7 @@ import { getAuth } from 'firebase/auth';
 import { doc } from 'firebase/firestore'
 import SnackBar from '../components/ProfilePage/SnackBar.vue';
 import { getDoc } from '@firebase/firestore';
+import { ref as refer, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 library.add(faCircleChevronLeft)
 
@@ -109,16 +111,25 @@ const userInput = ref({
 const auth = getAuth();
 const user = auth.currentUser.email;
 const userData = ref([])
+const imageData = ref('')
 
 onBeforeMount(async () => {
   const userDetails = await getUserDetails(user);
   userData.value = userDetails;
   userInput.value.username = userData.value.username
-  userInput.value.location = userData.value.location
+  if (userData.value.location) {
+    userInput.value.location = userData.value.location
+  }
+  if (userData.value.img) {
+    imageData.value = userData.value.img
+  } else {
+    // loads in placeholder image
+    imageData.value = 'https://via.placeholder.com/300'
+  }
+
 })
 
 const fileInput = ref(null)
-const imageData = ref('https://via.placeholder.com/300')
 
 const disableSave = ref(true)
 
@@ -129,12 +140,39 @@ const handleClick = () => {
 const handleFileChange = (e) => {
   const file = e.target.files[0]
   if (!file) return
-  const reader = new FileReader()
-  reader.readAsDataURL(file)
-  reader.onload = () => {
-    imageData.value = reader.result
-  }
+  const fileName = new Date().getTime() + file.name
+  const storageRef = refer(storage, `images/${fileName}`);
+
+  const uploadTask = uploadBytesResumable(storageRef, file);
+  uploadTask.on('state_changed', 
+    (snapshot) => {
+      // Observe state change events such as progress, pause, and resume
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+      switch (snapshot.state) {
+        case 'paused':
+          console.log('Upload is paused');
+          break;
+        case 'running':
+          console.log('Upload is running');
+          break;
+      }
+    }, 
+    (error) => {
+      console.log(error)
+    }, 
+    () => {
+      // Handle successful uploads on complete
+      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        console.log('File available at', downloadURL);
+        imageData.value = downloadURL
+      });
+    }
+  );
 }
+
 
 function onChangeInput() {
   disableSave.value = false

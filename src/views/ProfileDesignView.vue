@@ -16,18 +16,17 @@
           >
       </div>
       <div v-if="userData" class="details-wrapper">
-        <div class="input-wrapper" v-for="(input, index) in inputs" :key="index">
+        <div class="input-wrapper" v-for="input in inputs" :key="input.label">
           <div class="input-title">{{ input.inputName }}</div>
-          <input 
+          <input
             class="input-field"
-            :v-model= input.model
-            :type= input.type
-            :label= input.label
-            :rules= input.rules
-            :value= input.model
+            v-model = "userInput[input.name]"
+            :type = "input.type"
+            :placeholder="input.placeholder"
+            :name="input.name"
             required
             clearable
-            @change="onChangeInput"
+            @change="onChangeInput()"
             >
         </div>
 
@@ -61,58 +60,61 @@ async function getUserDetails(user) {
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
     let userData = docSnap.data();
+    console.log("got info")
     return userData;
   } else {
     console.log("No such document!");
   }
 }
 
+const INPUT_FIELDS = [
+  {
+    inputName: "Username",
+    placeholder: "Enter a username",
+    label: "Username",
+    type: "text",
+    name: "username",
+  },
+  {
+    inputName: "Password",
+    placeholder: "Enter a new password",
+    label: "Password",
+    type: "password",
+    name: "password",
+  },
+  {
+    inputName: "Confirm Password",
+    placeholder: "Confirm your password",
+    label: "Password confirmation",
+    type: "password",
+    name: "passwordConfirmation",
+  },
+  {
+    inputName: "Location",
+    placeholder: "Enter a Location",
+    label: "Location",
+    type: "text",
+    name: "location",
+  }
+]
+
+const inputs = ref(INPUT_FIELDS)
+const userInput = ref({
+        username: "",
+        password: "",
+        passwordConfirmation: "",
+        location: "",
+      })
+
 const auth = getAuth();
 const user = auth.currentUser.email;
-const userData = ref(null)
+const userData = ref([])
 
 onBeforeMount(async () => {
   const userDetails = await getUserDetails(user);
   userData.value = userDetails;
-  // console.log(userData.value)
-  const inputs = ref([
-  {
-    inputName: 'Username',
-    type: "text",
-    model: "username",
-    label: "Username",
-    rules: "usernameRules",
-    modelValue: "username",
-  },
-  {
-    inputName: 'Password',
-    type: "password",
-    model: "",
-    label: "Password",
-    rules: "passwordRules",
-    modelValue: "",
-  },
-  {
-    inputName: 'Confirm Password',
-    type: "password",
-    model: "",
-    label: "ConfirmPassword",
-    rules: "confirmPasswordRules",
-    modelValue: "",
-  },
-  {
-    inputName: 'Location',
-    type: "text",
-    model: "location",
-    label: "Location",
-    rules: "locationRules",
-    modelValue: "location",
-  }
-])
-  return {
-    userData,
-    inputs
-  }
+  userInput.value.username = userData.value.username
+  userInput.value.location = userData.value.location
 })
 
 const fileInput = ref(null)
@@ -138,49 +140,6 @@ function onChangeInput() {
   disableSave.value = false
 }
 
-const inputs = ref([
-  {
-    inputName: 'Username',
-    type: "text",
-    model: "username",
-    label: "Username",
-    rules: "usernameRules",
-    modelValue: "username",
-  },
-  // {
-  //   inputName: 'Email',
-  //   type: "email",
-  //   model: "email",
-  //   label: "Email",
-  //   rules: "emailRules",
-  //   modelValue: "email",
-
-  // },
-  {
-    inputName: 'Password',
-    type: "password",
-    model: "",
-    label: "Password",
-    rules: "passwordRules",
-    modelValue: "",
-  },
-  {
-    inputName: 'Confirm Password',
-    type: "password",
-    model: "",
-    label: "ConfirmPassword",
-    rules: "confirmPasswordRules",
-    modelValue: "",
-  },
-  {
-    inputName: 'Location',
-    type: "text",
-    model: "location",
-    label: "Location",
-    rules: "locationRules",
-    modelValue: "location",
-  }
-])
 </script>
 
 <style scoped>

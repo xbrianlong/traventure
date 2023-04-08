@@ -3,7 +3,9 @@
   <div class="view">
     <font-awesome-icon icon="fa-solid fa-circle-chevron-left" class="back-icon" />
     <div class="page-title">User Profile</div>
-    <div class="container">
+    <form 
+      class="container" 
+      @submit.prevent="submitForm">
       <div 
         class="avatar"
         :style="{ 'background-image': `url(${imageData})` }"
@@ -16,7 +18,7 @@
             @change="onChangeInput"
           >
       </div>
-      <div v-if="userData" class="details-wrapper">
+      <div class="details-wrapper">
         <div class="input-wrapper" v-for="input in inputs" :key="input.label">
           <div class="input-title">{{ input.inputName }}</div>
           <input
@@ -33,10 +35,12 @@
 
         <button 
           class="save-btn"
-          :disabled="disableSave">Save</button>
+          :disabled="disableSave"
+          type="submit"
+          >Save</button>
         <!-- <div class="save-btn">Save</div> -->
       </div>
-    </div>
+    </form>
     <SnackBar />
   </div>
 </template>
@@ -50,7 +54,7 @@ import { faCircleChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
 import { db, storage } from '../firebase';
 import { getAuth } from 'firebase/auth';
-import { doc } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 import SnackBar from '../components/ProfilePage/SnackBar.vue';
 import { getDoc } from '@firebase/firestore';
 import { ref as refer, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -58,11 +62,10 @@ import { ref as refer, uploadBytesResumable, getDownloadURL } from "firebase/sto
 library.add(faCircleChevronLeft)
 
 async function getUserDetails(user) {
-  const docRef = doc(db, "email1@email.com", "userDetails");
+  const docRef = doc(db, user, "userDetails");
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
     let userData = docSnap.data();
-    console.log("got info")
     return userData;
   } else {
     console.log("No such document!");
@@ -78,6 +81,13 @@ const INPUT_FIELDS = [
     name: "username",
   },
   {
+    inputName: "Location",
+    placeholder: "Enter a Location",
+    label: "Location",
+    type: "text",
+    name: "location",
+  },
+  {
     inputName: "Password",
     placeholder: "Enter a new password",
     label: "Password",
@@ -90,13 +100,6 @@ const INPUT_FIELDS = [
     label: "Password confirmation",
     type: "password",
     name: "passwordConfirmation",
-  },
-  {
-    inputName: "Location",
-    placeholder: "Enter a Location",
-    label: "Location",
-    type: "text",
-    name: "location",
   }
 ]
 
@@ -111,22 +114,22 @@ const userInput = ref({
 const auth = getAuth();
 const user = auth.currentUser.email;
 const userData = ref([])
-const imageData = ref('')
+const imageData = ref('https://via.placeholder.com/300')
 
 onBeforeMount(async () => {
   const userDetails = await getUserDetails(user);
   userData.value = userDetails;
-  userInput.value.username = userData.value.username
-  if (userData.value.location) {
-    userInput.value.location = userData.value.location
+  if (userDetails) {
+    if (userData.value.username) {
+      userInput.value.username = userData.value.username
+    }
+    if (userData.value.location) {
+      userInput.value.location = userData.value.location
+    }
+    if (userData.value.img) {
+      imageData.value = userData.value.img
+    }
   }
-  if (userData.value.img) {
-    imageData.value = userData.value.img
-  } else {
-    // loads in placeholder image
-    imageData.value = 'https://via.placeholder.com/300'
-  }
-
 })
 
 const fileInput = ref(null)
@@ -176,6 +179,22 @@ const handleFileChange = (e) => {
 
 function onChangeInput() {
   disableSave.value = false
+}
+
+async function submitForm() {
+  const data = {
+    username: userInput.value.username,
+    location: userInput.value.location,
+    img: imageData.value,
+  }
+  try {
+      await setDoc(doc(db, user, "userDetails"), data);
+  } catch (error) {
+      console.log(error);
+  }
+  console.log("done")
+  // showSnackBar()
+  //steps to update the user details in the database
 }
 
 </script>

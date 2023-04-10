@@ -120,6 +120,7 @@ const userInput = ref({
 const auth = getAuth();
 const user = auth.currentUser.email;
 const userData = ref([])
+//change default image
 const imageData = ref('https://via.placeholder.com/300')
 
 onBeforeMount(async () => {

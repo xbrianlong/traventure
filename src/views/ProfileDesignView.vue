@@ -27,8 +27,6 @@
             :type = "input.type"
             :placeholder="input.placeholder"
             :name="input.name"
-            required
-            clearable
             @change="onChangeInput"
             >
         </div>
@@ -41,7 +39,7 @@
         <!-- <div class="save-btn">Save</div> -->
       </div>
     </form>
-    <SnackBar />
+    <SnackBar :message="message" :type="type" />
   </div>
 </template>
 
@@ -53,7 +51,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCircleChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
 import { db, storage } from '../firebase';
-import { getAuth } from 'firebase/auth';
+import { EmailAuthProvider, getAuth, reauthenticateWithCredential, updatePassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore'
 import SnackBar from '../components/ProfilePage/SnackBar.vue';
 import { getDoc } from '@firebase/firestore';
@@ -88,17 +86,24 @@ const INPUT_FIELDS = [
     name: "location",
   },
   {
-    inputName: "Password",
+    inputName: "New Password",
+    placeholder: "Enter your old password",
+    label: "Old password",
+    type: "text",
+    name: "oldPassword",
+  },
+  {
+    inputName: "Old Password",
     placeholder: "Enter a new password",
-    label: "Password",
-    type: "password",
-    name: "password",
+    label: "New password",
+    type: "text",
+    name: "newPassword",
   },
   {
     inputName: "Confirm Password",
     placeholder: "Confirm your password",
     label: "Password confirmation",
-    type: "password",
+    type: "text",
     name: "passwordConfirmation",
   }
 ]
@@ -106,9 +111,10 @@ const INPUT_FIELDS = [
 const inputs = ref(INPUT_FIELDS)
 const userInput = ref({
         username: "",
-        password: "",
-        passwordConfirmation: "",
         location: "",
+        oldPassword: "",
+        newPassword: "",
+        passwordConfirmation: "",
       })
 
 const auth = getAuth();
@@ -135,6 +141,8 @@ onBeforeMount(async () => {
 const fileInput = ref(null)
 
 const disableSave = ref(true)
+const message = ref('')
+const type = ref('success')
 
 const handleClick = () => {
   fileInput.value.click()
@@ -181,20 +189,59 @@ function onChangeInput() {
   disableSave.value = false
 }
 
+function showSnackBar() {
+  message.value = 'Your profile is saved successfully!'
+  setTimeout(() => {
+    message.value = ''
+  }, 3000)
+}
+
 async function submitForm() {
   const data = {
     username: userInput.value.username,
     location: userInput.value.location,
     img: imageData.value,
   }
+  let reset = false
+  if (userInput.value.oldPassword && userInput.value.newPassword && userInput.value.passwordConfirmation) {
+    reset = true
+  }
   try {
       await setDoc(doc(db, user, "userDetails"), data);
   } catch (error) {
       console.log(error);
   }
+  if (reset) {
+    //maybe can make sure the password rules work before this block runs
+    //then a else clause to show failure in a snackbar
+    console.log("resetting...")
+    try {
+      const credential = EmailAuthProvider.credential(
+        user,
+        userInput.value.oldPassword
+      )
+      await reauthenticateWithCredential(
+        auth.currentUser,
+        credential
+      ).then(() => {
+        if (userInput.value.newPassword == userInput.value.passwordConfirmation) {
+          updatePassword(auth.currentUser, userInput.value.newPassword)
+          console.log("password updated")
+          //prob can add to the message in the snackbar that password updated
+        } else {
+          console.log("failure to update")
+          //idk what other rules there needs to be but this is the failure clause
+        }
+      })
+    } catch (error) {
+      console.log(error);
+      //prob can add a snackbar failure here
+      //both update password and reauth errors will end up here
+    }
+  }
   console.log("done")
-  // showSnackBar()
-  //steps to update the user details in the database
+  showSnackBar()
+  //success snackbar, needa somehow isolate this to show only if successful
 }
 
 </script>

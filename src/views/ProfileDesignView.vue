@@ -144,10 +144,12 @@ const disableSave = ref(true)
 const message = ref('')
 const type = ref('success')
 
+//handle on click for image
 const handleClick = () => {
   fileInput.value.click()
 }
 
+//handle uploading for image
 const handleFileChange = (e) => {
   const file = e.target.files[0]
   if (!file) return
@@ -184,11 +186,12 @@ const handleFileChange = (e) => {
   );
 }
 
-
+//enables save button when there is an input
 function onChangeInput() {
   disableSave.value = false
 }
 
+//show snackbar but i think can input variables so snackbar's message and type can change
 function showSnackBar() {
   message.value = 'Your profile is saved successfully!'
   setTimeout(() => {
@@ -196,20 +199,23 @@ function showSnackBar() {
   }, 3000)
 }
 
+//save button feature
 async function submitForm() {
+  //for changing of image/userdetails
   const data = {
     username: userInput.value.username,
     location: userInput.value.location,
     img: imageData.value,
   }
-  let reset = false
-  if (userInput.value.oldPassword && userInput.value.newPassword && userInput.value.passwordConfirmation) {
-    reset = true
-  }
   try {
       await setDoc(doc(db, user, "userDetails"), data);
   } catch (error) {
       console.log(error);
+  }
+  //for changing of password
+  let reset = false
+  if (userInput.value.oldPassword && userInput.value.newPassword && userInput.value.passwordConfirmation) {
+    reset = true
   }
   if (reset) {
     //maybe can make sure the password rules work before this block runs

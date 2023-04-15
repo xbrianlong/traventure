@@ -26,6 +26,7 @@ import { RouterLink } from 'vue-router'
   position: fixed;
   width: 100%;
   background-color: white;
+  z-index: 1000;
 }
 .logo-wrapper {
   display: flex;

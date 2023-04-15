@@ -23,20 +23,20 @@ const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 const mapRef = ref(null)
 const props = defineProps(['placeId'])
 
-/* watch(
-  () => mapRef.value?.ready,
-  (ready) => {
-    if (ready) {
-      var geocoder = new mapRef.value.api.Geocoder()
-      geocoder.geocode({ placeId: props.placeId }, function (results, status) {
-        if (status == 'OK') {
-          mapRef.value.map.setCenter(results[0].geometry.location)
-          mapRef.value.map.setZoom(12)
-        }
-      })
-    }
-  }
-) */
+// watch(
+//   () => mapRef.value?.ready,
+//   (ready) => {
+//     if (ready) {
+//       var geocoder = new mapRef.value.api.Geocoder()
+//       geocoder.geocode({ placeId: props.placeId }, function (results, status) {
+//         if (status == 'OK') {
+//           mapRef.value.map.setCenter(results[0].geometry.location)
+//           mapRef.value.map.setZoom(12)
+//         }
+//       })
+//     }
+//   }
+// )
 </script>
 
 <style scoped>

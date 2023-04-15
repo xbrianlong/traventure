@@ -1,10 +1,10 @@
 <template>
   <div class="input-container">
-    <v-icon icon="mdi-magnify" id="icon" size="large"></v-icon>
+    <span class="whereto">Where to ?</span>
     <input
       type="text"
       id="search-input"
-      placeholder="Search"
+      placeholder="e.g. Paris, China, Italy"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
     />
@@ -19,37 +19,28 @@ defineEmits(['update:modelValue'])
 <style scoped>
 .input-container {
   position: relative;
-  background-color: var(--light-grey-primary);
+  border: solid 2px var(--light-grey-primary);
   padding: 0px 10px 0px 25px;
-  border-radius: 10px;
+  border-radius: 20px;
   line-height: 52px;
-}
-
-.input-container #icon {
-  position: absolute;
-  color: var(--dark-grey-primary);
-  align-items: center;
-  right: 0;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto 0;
-  padding-left: 35px;
+  width: 80%;
 }
 
 .input-container #search-input {
-  line-height: normal;
-  display: inline-block;
-  vertical-align: middle;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: 300;
+  font-size: 18px;
   color: var(--dark-grey-primary);
-  width: 100%;
-  padding-left: 40px;
+  width: 80%;
+  display: inline-flex;
+  margin-left: 15px;
 }
 
 .input-container input:focus {
   outline: none;
+}
+
+.whereto {
+  font-size: 20px;
+  font-weight: bold;
 }
 </style>

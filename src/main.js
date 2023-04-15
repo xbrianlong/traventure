@@ -82,6 +82,7 @@ const store = createStore({
 // Create Vue App
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)
+app.component('VueDatePicker', VueDatePicker)
 app.use(router)
 app.use(vuetify)
 app.use(VuetifyUseDialog)

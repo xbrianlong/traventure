@@ -72,12 +72,13 @@ const username = computed(() => {
   position: fixed;
   width: 100%;
   background-color: white;
-  z-index: 100;
+  z-index: 1000;
 }
 .logo-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .logo-wrapper img {

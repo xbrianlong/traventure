@@ -44,8 +44,9 @@
 
 <script setup>
 import { useField, useForm } from 'vee-validate'
-import { auth } from '../../../firebase'
+import { db, auth } from '../../../firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { setDoc, doc } from 'firebase/firestore'
 import router from '@/router'
 
 const { handleSubmit } = useForm({
@@ -84,7 +85,12 @@ const onSubmit = handleSubmit((values) => {
   createUserWithEmailAndPassword(auth, values.email, values.password)
     .then(() => {
       // Signed in
-      router.push('/dashboard')
+      const data = {
+        username: values.username,
+      }
+      setDoc(doc(db, values.email, "userDetails"), data).then(() => {
+        router.push('/dashboard')
+      })
     })
     .catch((error) => {
       const errorCode = error.code

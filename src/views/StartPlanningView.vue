@@ -35,7 +35,7 @@ const inputRef = ref('')
 const dateRef = ref([])
 
 async function createItinerary() {
-  const docID = 'trip-to-' + inputRef.value.toLowerCase()
+  const docID = inputRef.value.toLowerCase()
   const startDay = dateRef.value[0]
   const endDay = dateRef.value[1]
 

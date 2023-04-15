@@ -84,7 +84,7 @@ watch(
   (newVal) => {
     if (newVal) {
       var input = document.getElementById('search-input')
-      new mapRef.value.api.places.SearchBox(input, {
+      new mapRef.value.api.places.Autocomplete(input, {
         bounds: mapRef.value.map.getBounds(),
         strictBounds: true
       })

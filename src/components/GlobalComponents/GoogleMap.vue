@@ -3,7 +3,7 @@
     <!-- Manually set width and height via inline attributes -->
     <GoogleMap
       :api-key="apiKey"
-      style="position: fixed; width: 29vw; height: 90vh"
+      style="position: fixed; width: 29vw; height: 100vh"
       ref="mapRef"
     ></GoogleMap>
   </div>
@@ -53,7 +53,7 @@ watch(
 
         service.textSearch(toDoRequest, function (results, status) {
           if (status == mapRef.value.api.places.PlacesServiceStatus.OK) {
-            store.commit('upload', {
+            store.commit('uploadExploreData', {
               category: 'Things to Do',
               data: results
             })
@@ -68,7 +68,7 @@ watch(
 
         await service.textSearch(foodRequest, function (results, status) {
           if (status == mapRef.value.api.places.PlacesServiceStatus.OK) {
-            store.commit('upload', {
+            store.commit('uploadExploreData', {
               category: 'Food',
               data: results
             })
@@ -83,7 +83,7 @@ watch(
 
         await service.textSearch(hotelRequest, function (results, status) {
           if (status == mapRef.value.api.places.PlacesServiceStatus.OK) {
-            store.commit('upload', {
+            store.commit('uploadExploreData', {
               category: 'Hotels',
               data: results
             })
@@ -98,7 +98,7 @@ watch(
 
         await service.textSearch(shoppingRequest, function (results, status) {
           if (status == mapRef.value.api.places.PlacesServiceStatus.OK) {
-            store.commit('upload', {
+            store.commit('uploadExploreData', {
               category: 'Shopping',
               data: results
             })
@@ -115,7 +115,7 @@ watch(
   position: fixed;
   right: 0;
   width: 29%;
-  height: 90%;
+  height: 100vh;
   box-shadow: inset 7px 0 8px -7px var(--dark-grey-primary);
   z-index: 100;
 }

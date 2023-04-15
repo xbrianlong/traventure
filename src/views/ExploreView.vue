@@ -39,13 +39,14 @@
       </div>
     </div>
   </div>
+  <LocationCard v-if="showLocationCard" />
 </template>
 
 <script setup>
 import TheHeader from '../components/GlobalComponents/TheHeader.vue'
 import NavigationBar from '../components/GlobalComponents/NavigationBar.vue'
 import GoogleMap from '../components/GlobalComponents/GoogleMap.vue'
-//import SearchBar from '../components/GlobalComponents/SearchBar.vue'
+import LocationCard from '../components/GlobalComponents/LocationCard.vue'
 import ExploreList from '../components/ExplorePage/ExploreList.vue'
 import ExploreItem from '../components/ExplorePage/ExploreItem.vue'
 import { ref, computed, watch } from 'vue'
@@ -55,6 +56,7 @@ const store = useStore()
 
 const exploreData = computed(() => store.getters.getExploreData)
 const mapRef = computed(() => store.getters.getMapRef)
+const showLocationCard = computed(() => store.getters.getLocationCardStatus)
 
 // Initialize mapRef
 const pageString = ref('Explore')

@@ -9,7 +9,6 @@
       <div class="selections">
         <SearchStartPlanning />
         <DateStartPlanning />
-        <!-- <DatePicker /> -->
       </div>
       <StartPlanningButton class="button" />
     </div>

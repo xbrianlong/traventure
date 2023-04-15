@@ -4,7 +4,7 @@
     <VueDatePicker
       v-model="date"
       range
-      placeholder="Start Date | End Date"
+      placeholder="Start Date   |   End Date"
       auto-apply
       multi-calendars
       :format="formatDate"

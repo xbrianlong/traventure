@@ -23,6 +23,20 @@ import GoogleMap from '../components/GlobalComponents/GoogleMap.vue'
 import DestinationContainer from '../components/ItineraryPage/DestinationContainer.vue'
 import SearchBar from '../components/GlobalComponents/SearchBar.vue'
 
+import { getAuth } from '@firebase/auth'
+import { db } from '../firebase'
+import { getDoc, doc } from 'firebase/firestore'
+
+const auth = getAuth()
+const user = auth.currentUser.email
+
+const city = ref('')
+
+// need to pass in dynamic city
+const docSnap = await getDoc(doc(db, user, 'userDetails', 'itineraries', 'italy'))
+
+city.value = docSnap.data().tripCity
+
 const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 const input = ref('')
 const toggle = ref(true)

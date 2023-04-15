@@ -39,22 +39,24 @@
       </div>
     </div>
   </div>
+  <LocationCard v-if="showLocationCard" />
 </template>
 
 <script setup>
 import TheHeader from '../components/GlobalComponents/TheHeader.vue'
 import NavigationBar from '../components/GlobalComponents/NavigationBar.vue'
 import GoogleMap from '../components/GlobalComponents/GoogleMap.vue'
-//import SearchBar from '../components/GlobalComponents/SearchBar.vue'
+import LocationCard from '../components/GlobalComponents/LocationCard.vue'
 import ExploreList from '../components/ExplorePage/ExploreList.vue'
 import ExploreItem from '../components/ExplorePage/ExploreItem.vue'
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onUnmounted } from 'vue'
 import { useStore } from 'vuex'
 
 const store = useStore()
 
 const exploreData = computed(() => store.getters.getExploreData)
 const mapRef = computed(() => store.getters.getMapRef)
+const showLocationCard = computed(() => store.getters.getLocationCardStatus)
 
 // Initialize mapRef
 const pageString = ref('Explore')
@@ -62,6 +64,8 @@ const pageString = ref('Explore')
 // Initialize viewAllView and category states
 const toggleViewAll = ref(false)
 const category = ref('')
+
+const acObj = ref(null)
 
 function viewAll(placeCategory) {
   toggleViewAll.value = !toggleViewAll.value
@@ -82,13 +86,48 @@ watch(
   (newVal) => {
     if (newVal) {
       var input = document.getElementById('search-input')
-      new mapRef.value.api.places.SearchBox(input, {
+      acObj.value = new mapRef.value.api.places.Autocomplete(input, {
         bounds: mapRef.value.map.getBounds(),
-        strictBounds: true
+        strictBounds: true,
+        fields: [
+          'name',
+          'photos',
+          'rating',
+          'formatted_address',
+          'formatted_phone_number',
+          'website',
+          'types',
+          'geometry'
+        ]
       })
+      acObj.value.addListener('place_changed', getPlaceResult)
     }
   }
 )
+
+function getPlaceResult() {
+  var place = acObj.value.getPlace()
+  store.commit('showLocationCard')
+  store.commit('uploadLocationCardData', place)
+
+  if (store.getters.getTempMarker) {
+    store.getters.getTempMarker.setMap(null)
+  }
+
+  var marker = new mapRef.value.api.Marker({
+    position: place.geometry.location,
+    map: mapRef.value.map
+  })
+
+  //Add temp marker
+  store.commit('addTempMarker', marker)
+
+  store.getters.getTempMarker.setMap(mapRef.value.map)
+
+  mapRef.value.map.panTo(place.geometry.location)
+}
+
+onUnmounted(() => store.commit('closeLocationCard'))
 </script>
 
 <style scoped>

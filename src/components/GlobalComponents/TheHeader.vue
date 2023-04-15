@@ -51,7 +51,6 @@ onMounted(() => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       currentUser.value = user
-      console.log(user)
     }
   })
 })

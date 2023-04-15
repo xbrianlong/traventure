@@ -2,7 +2,8 @@
   <div class="date-container">
     <span class="dates">Dates</span>
     <VueDatePicker
-      v-model="date"
+      :model-value="date"
+      @update:model-value="handleDate"
       range
       placeholder="Start Date   |   End Date"
       auto-apply
@@ -21,13 +22,20 @@
 <script setup>
 import { ref } from 'vue'
 
+const emit = defineEmits(['update-date'])
+
 const date = ref()
+
+function handleDate(modelData) {
+  date.value = modelData
+  emit('update-date', date.value)
+}
 
 function formatDate(date) {
   const startDay = date[0]
   const endDay = date[1]
-
   return `${startDay.getDate()}/${startDay.getMonth()}/${startDay.getFullYear()} - ${endDay.getDate()}/${endDay.getMonth()}/${endDay.getFullYear()}`
+  // return `${startDay.toDateString()} - ${endDay.toDateString()}`
 }
 </script>
 

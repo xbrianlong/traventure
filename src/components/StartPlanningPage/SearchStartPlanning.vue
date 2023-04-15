@@ -29,7 +29,6 @@ defineEmits(['update:modelValue'])
 .input-container #search-input {
   font-weight: 300;
   font-size: 18px;
-  font-style: italic;
   color: var(--dark-grey-primary);
   width: 80%;
   display: inline-flex;

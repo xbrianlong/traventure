@@ -17,7 +17,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@mdi/font": "^7.1.96",
     "@mdi/js": "^7.1.96",
-    "@vuepic/vue-datepicker": "^4.2.3",
+    "@vuepic/vue-datepicker": "^4.3.0",
     "dotenv": "^16.0.3",
     "esbuild": "^0.17.14",
     "firebase": "^9.17.2",

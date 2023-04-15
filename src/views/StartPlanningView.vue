@@ -25,13 +25,12 @@ import { getAuth } from '@firebase/auth'
 import { db } from '../firebase'
 import { doc, setDoc } from 'firebase/firestore'
 
-function getDate(data) {
-  dateRef.value = data
-}
-
 const auth = getAuth()
 const user = auth.currentUser.email
 
+function getDate(data) {
+  dateRef.value = data
+}
 const inputRef = ref('')
 const dateRef = ref([])
 
@@ -45,7 +44,7 @@ async function createItinerary() {
     tripStartDate: `${startDay.getDate()}/${startDay.getMonth()}/${startDay.getFullYear()}`,
     tripEndDate: `${endDay.getDate()}/${endDay.getMonth()}/${endDay.getFullYear()}`
   }
-  await setDoc(doc(db, user, docID), itineraryData)
+  await setDoc(doc(db, user, 'userDetails', 'itineraries', docID), itineraryData)
 }
 </script>
 

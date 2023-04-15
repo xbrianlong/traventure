@@ -9,12 +9,15 @@
       </v-row>
 
       <div class="location-title-wrapper">
-        <font-awesome-icon icon="fa-solid fa-location-pin" />
+        <font-awesome-icon icon="fa-solid fa-location-pin" color="#E94335" />
         <span class="location-title">{{ locationCardData.name }}</span>
       </div>
 
       <div class="location-image-wrapper">
-        <img :src="locationCardData.photos[0].getUrl()" alt="location-item-image" />
+        <img
+          :src="locationCardData.photos[0].getUrl() ? locationCardData.photos[0].getUrl() : ''"
+          alt="location-item-image"
+        />
       </div>
 
       <div v-for="(type, index) in locationCardData.types" class="label-group" :key="index">

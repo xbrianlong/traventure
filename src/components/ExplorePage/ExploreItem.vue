@@ -9,6 +9,7 @@
                 props.placeDetails.name
               }}</v-card-title>
             </v-col>
+            <!--
             <v-col class="px-1 flex-grow-0 flex-shrink-0">
               <a flat @click="toggleLike">
                 <v-icon v-if="like" icon="mdi-heart" color="red"></v-icon>
@@ -21,6 +22,7 @@
                 <v-icon v-else class="icon" icon="mdi-plus-circle-outline"></v-icon>
               </a>
             </v-col>
+            -->
           </v-row>
 
           <div
@@ -109,8 +111,8 @@ const favourite = ref(false)
 
 const mapRef = computed(() => store.getters.getMapRef)
 
-const toggleLike = () => (like.value = !like.value)
-const toggleFavourite = () => (favourite.value = !favourite.value)
+//const toggleLike = () => (like.value = !like.value)
+//const toggleFavourite = () => (favourite.value = !favourite.value)
 
 var request = {
   placeId: props.placeDetails.place_id,

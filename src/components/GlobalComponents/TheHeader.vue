@@ -5,14 +5,60 @@
         <img src="../../assets/images/logo-black.png" />
       </RouterLink>
     </div>
-    <RouterLink to="/profile">
-      <v-avatar color="black" class="mr-8" size="45"></v-avatar>
-    </RouterLink>
+    <v-menu rounded>
+      <template v-slot:activator="{ props }">
+        <v-btn class="mx-5" icon v-bind="props">
+          <v-avatar color="black" size="45"> </v-avatar>
+        </v-btn>
+      </template>
+      <v-card min-width="175px">
+        <v-card-text>
+          <div class="mx-auto text-center">
+            <v-avatar class="my-2" color="black"></v-avatar>
+            <h3>{{ username }}</h3>
+            <p class="text-caption mt-1">{{ currentUser.email }}</p>
+            <v-divider class="my-3"></v-divider>
+            <v-btn rounded variant="text" :to="{ name: 'profile' }">My Profile</v-btn>
+            <v-divider class="my-3"></v-divider>
+            <v-btn rounded variant="text" @click="logOut">Log Out</v-btn>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-menu>
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted, computed } from 'vue'
 import { RouterLink } from 'vue-router'
+import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth'
+import router from '@/router'
+
+const auth = getAuth()
+const currentUser = ref(null)
+
+async function logOut() {
+  signOut(auth)
+    .then(() => {
+      router.push({ name: 'LandingPage' })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
+
+onMounted(() => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      currentUser.value = user
+      console.log(user)
+    }
+  })
+})
+
+const username = computed(() => {
+  return currentUser.value.displayName ? currentUser.value.displayName : currentUser.value.username
+})
 </script>
 
 <style scoped>

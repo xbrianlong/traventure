@@ -1,21 +1,18 @@
 <template>
-  <RouterLink to="/explore">
-    <div class="start-planning-btn">
-      <v-btn @click="directToExplorePage" rounded="pill" variant="tonal"> Start Planning </v-btn>
-    </div>
-  </RouterLink>
+  <button class="button">Start Planning</button>
 </template>
 
-<script setup>
-import { RouterLink } from 'vue-router'
-</script>
+<script setup></script>
 
-<style lang="scss" scoped>
-.start-planning-btn {
-  text-align: center;
-}
-.v-btn {
-  color: white;
+<style scoped>
+.button {
   background-color: black;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 15px 25px;
 }
 </style>

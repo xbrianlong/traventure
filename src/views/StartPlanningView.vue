@@ -7,19 +7,45 @@
     <div class="box-wrapper centered">
       <h2 class="box-title">Plan a new trip</h2>
       <div class="selections">
-        <SearchStartPlanning />
-        <DateStartPlanning />
+        <SearchStartPlanning v-model="inputRef" />
+        <DateStartPlanning v-model="dateRef" @update-date="getDate" />
       </div>
-      <StartPlanningButton class="button" />
+      <button class="button" @click="createItinerary">Start Planning</button>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import TheHeader from '../components/GlobalComponents/TheHeader.vue'
 import SearchStartPlanning from '../components/StartPlanningPage/SearchStartPlanning.vue'
 import DateStartPlanning from '../components/StartPlanningPage/DateStartPlanning.vue'
-import StartPlanningButton from '../components/StartPlanningPage/StartPlanningButton.vue'
+
+import { getAuth } from '@firebase/auth'
+import { db } from '../firebase'
+import { doc, setDoc } from 'firebase/firestore'
+
+const auth = getAuth()
+const user = auth.currentUser.email
+
+function getDate(data) {
+  dateRef.value = data
+}
+const inputRef = ref('')
+const dateRef = ref([])
+
+async function createItinerary() {
+  const docID = inputRef.value.toLowerCase()
+  const startDay = dateRef.value[0]
+  const endDay = dateRef.value[1]
+
+  const itineraryData = {
+    tripCity: inputRef.value,
+    tripStartDate: `${startDay.getDate()}/${startDay.getMonth()}/${startDay.getFullYear()}`,
+    tripEndDate: `${endDay.getDate()}/${endDay.getMonth()}/${endDay.getFullYear()}`
+  }
+  await setDoc(doc(db, user, 'userDetails', 'itineraries', docID), itineraryData)
+}
 </script>
 
 <style scoped>
@@ -58,7 +84,7 @@ import StartPlanningButton from '../components/StartPlanningPage/StartPlanningBu
 
 .box-title {
   font-size: 40px;
-  margin-top: 30px;
+  margin-top: 50px;
 }
 
 .selections {
@@ -72,6 +98,14 @@ import StartPlanningButton from '../components/StartPlanningPage/StartPlanningBu
 }
 
 .button {
+  background-color: black;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 30px;
   margin-top: 50px;
+  padding: 15px 25px;
 }
 </style>

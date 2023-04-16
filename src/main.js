@@ -34,15 +34,30 @@ const store = createStore({
   state() {
     return {
       exploreData: {},
-      mapRef: null
+      mapRef: null,
+      locationCardData: {},
+      showLocationCard: false,
+      tempMarker: null
     }
   },
   mutations: {
-    upload(state, payload) {
+    uploadExploreData(state, payload) {
       state.exploreData[payload.category] = payload.data
     },
     updateMapRef(state, newMapRef) {
       state.mapRef = newMapRef
+    },
+    showLocationCard(state) {
+      state.showLocationCard = true
+    },
+    closeLocationCard(state) {
+      state.showLocationCard = false
+    },
+    uploadLocationCardData(state, data) {
+      state.locationCardData = data
+    },
+    addTempMarker(state, marker) {
+      state.tempMarker = marker
     }
   },
   getters: {
@@ -51,6 +66,15 @@ const store = createStore({
     },
     getMapRef(state) {
       return state.mapRef
+    },
+    getLocationCardStatus(state) {
+      return state.showLocationCard
+    },
+    getLocationCardData(state) {
+      return state.locationCardData
+    },
+    getTempMarker(state) {
+      return state.tempMarker
     }
   }
 })
@@ -58,6 +82,7 @@ const store = createStore({
 // Create Vue App
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)
+app.component('VueDatePicker', VueDatePicker)
 app.use(router)
 app.use(vuetify)
 app.use(VuetifyUseDialog)

@@ -1,63 +1,41 @@
 <template>
   <div class="section-wrapper">
     <h2 class="trip">Trips</h2>
-
     <div class="card-group">
-      <TripCard
-        class="trip-card"
-        v-for="(tripCard, index) in tripCards"
-        :key="index"
-        :title="tripCard.title"
-        :startDate="tripCard.startDate"
-        :endDate="tripCard.endDate"
-        :numPlaces="tripCard.numPlaces"
-        :imageAlt="tripCard.imageAlt"
-        :imageSource="tripCard.imageSource"
-        @removeItem="removeItem(index)"
-      />
+      <template v-for="(trip, index) in trips" :key="index">
+        <TripCard
+          class="trip-card"
+          :title="`Trip to ${trip.tripCity}`"
+          :startDate="trip.tripStartDate"
+          :endDate="trip.tripEndDate"
+          :numPlaces="trip.numPlaces"
+          :imageAlt="trip.imageAlt"
+          :imageSource="trip.imageSource"
+          @removeItem="removeItem(index)"
+        />
+      </template>
     </div>
   </div>
 </template>
 
 <script setup>
 import TripCard from './TripCard.vue'
-import { ref } from 'vue'
 import { useConfirm, useSnackbar } from 'vuetify-use-dialog'
+import { ref } from 'vue'
+import { getAuth } from '@firebase/auth'
+import { db } from '../../firebase'
+import { getDocs, collection, doc, deleteDoc } from 'firebase/firestore'
 
-const tripCards = ref([
-  {
-    title: 'Trip to Japan',
-    startDate: 'Feb 3',
-    endDate: 'Mar 15',
-    numPlaces: '3',
-    imageAlt: 'japan-image',
-    imageSource: '../../assets/images/trip-card-image.jpg'
-  },
-  {
-    title: 'Trip to Korea',
-    startDate: 'Aug 9',
-    endDate: 'Sep 21',
-    numPlaces: '7',
-    imageAlt: 'korea-image',
-    imageSource: '../../assets/images/trip-card-image.jpg'
-  },
-  {
-    title: 'Trip to Australia',
-    startDate: 'Sept 11',
-    endDate: 'Oct 3',
-    numPlaces: '2',
-    imageAlt: 'australia-image',
-    imageSource: '../../assets/images/trip-card-image.jpg'
-  },
-  {
-    title: 'Trip to Netherlands',
-    startDate: 'May 27',
-    endDate: 'July 19',
-    numPlaces: '10',
-    imageAlt: 'netherlands-image',
-    imageSource: '../../assets/images/trip-card-image.jpg'
-  }
-])
+const auth = getAuth()
+const user = auth.currentUser.email
+
+const trips = ref([])
+
+const querySnapshot = await getDocs(collection(db, user, 'userDetails', 'itineraries'))
+
+querySnapshot.forEach((doc) => {
+  trips.value.push(doc.data())
+})
 
 const createConfirm = useConfirm()
 const createSnackbar = useSnackbar()
@@ -66,7 +44,7 @@ async function removeItem(index) {
   try {
     await createConfirm({
       title: 'Confirm Deletion',
-      content: `Are you sure you want to delete ${tripCards.value[index].title} ?`,
+      content: `Are you sure you want to delete Trip to ${trips.value[index].tripCity} ?`,
       confirmationText: 'Delete',
       cardProps: {
         width: 500
@@ -80,12 +58,15 @@ async function removeItem(index) {
     })
 
     createSnackbar({
-      text: `${tripCards.value[index].title} is deleted`,
+      text: `Trip to ${trips.value[index].tripCity} is deleted`,
       snackbarProps: {
         timeout: 1000
       }
     })
-    tripCards.value.splice(index, 1)
+    await deleteDoc(
+      doc(db, user, 'userDetails', 'itineraries', trips.value[index].tripCity.toLowerCase())
+    )
+    trips.value.splice(index, 1)
   } catch {
     // Actions after clicking Cancel
     ;(err) => console.log(err)
@@ -100,7 +81,7 @@ async function removeItem(index) {
 
 .card-group {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   row-gap: 50px;
   margin-top: 20px;
 }

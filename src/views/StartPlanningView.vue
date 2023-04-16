@@ -46,7 +46,6 @@ async function createItinerary() {
     tripStartDateFull: startDay,
     tripEndDateFull: endDay
   }
-  console.log(itineraryData)
   await setDoc(doc(db, user, 'userDetails', 'itineraries', docID), itineraryData)
 }
 </script>

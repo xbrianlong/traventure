@@ -26,49 +26,6 @@ import GoogleMap from '../components/GlobalComponents/GoogleMap.vue'
 import DestinationContainer from '../components/ItineraryPage/DestinationContainer.vue'
 import { useStore } from 'vuex'
 
-import { getAuth } from '@firebase/auth'
-import { db } from '../firebase'
-import { getDoc, doc } from 'firebase/firestore'
-
-const auth = getAuth()
-const user = auth.currentUser.email
-
-const city = ref('')
-const startDate = ref(null)
-const endDate = ref(null)
-
-// need to pass in dynamic city
-const docSnap = await getDoc(doc(db, user, 'userDetails', 'itineraries', 'china'))
-
-city.value = docSnap.data().tripCity
-startDate.value = new Date(docSnap.data().tripStartDateFull.seconds * 1000)
-endDate.value = new Date(docSnap.data().tripEndDateFull.seconds * 1000)
-
-const dates = ref([])
-
-function getDatesBetween(startDate, endDate) {
-  const dates = []
-
-  // Strip hours minutes seconds etc.
-  let currentDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())
-
-  while (currentDate <= endDate) {
-    dates.push(currentDate)
-
-    currentDate = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate() + 1
-    )
-  }
-
-  return dates
-}
-
-dates.value = getDatesBetween(startDate.value, endDate.value)
-
-console.log(dates.value)
-
 //const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 const input = ref('')
 const toggle = ref(true)

@@ -130,21 +130,21 @@ const inputOldPassword = {
   inputName: 'Old Password',
   placeholder: 'Enter your old password',
   label: 'Old password',
-  type: 'text',
+  type: 'password',
   name: 'oldPassword'
 }
 const inputNewPassword = {
   inputName: 'New Password',
   placeholder: 'Enter a new password',
   label: 'New password',
-  type: 'text',
+  type: 'password',
   name: 'newPassword'
 }
 const inputConfirmPassword = {
   inputName: 'Confirm Password',
   placeholder: 'Confirm your password',
   label: 'Password confirmation',
-  type: 'text',
+  type: 'password',
   name: 'passwordConfirmation'
 }
 
@@ -331,6 +331,9 @@ async function submitForm() {
   }
   console.log('done')
   showSnackBar('Your profile is saved successfully')
+  userInput.value.oldPassword = ''
+  userInput.value.newPassword = ''
+  userInput.value.passwordConfirmation = ''
 }
 </script>
 

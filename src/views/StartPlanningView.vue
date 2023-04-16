@@ -42,7 +42,9 @@ async function createItinerary() {
   const itineraryData = {
     tripCity: inputRef.value,
     tripStartDate: `${startDay.getDate()}/${startDay.getMonth()}/${startDay.getFullYear()}`,
-    tripEndDate: `${endDay.getDate()}/${endDay.getMonth()}/${endDay.getFullYear()}`
+    tripEndDate: `${endDay.getDate()}/${endDay.getMonth()}/${endDay.getFullYear()}`,
+    tripStartDateFull: startDay,
+    tripEndDateFull: endDay
   }
   await setDoc(doc(db, user, 'userDetails', 'itineraries', docID), itineraryData)
 }

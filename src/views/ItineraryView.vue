@@ -26,14 +26,14 @@ import GoogleMap from '../components/GlobalComponents/GoogleMap.vue'
 import DestinationContainer from '../components/ItineraryPage/DestinationContainer.vue'
 import { useStore } from 'vuex'
 
-const store = useStore()
-
 //const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 const input = ref('')
 const toggle = ref(true)
 function toggleMap() {
   toggle.value = !toggle.value
 }
+
+const store = useStore()
 
 const mapRef = computed(() => store.getters.getMapRef)
 const acObj = ref(null)

@@ -2,6 +2,7 @@
   <TheHeader />
   <div class="view">
     <font-awesome-icon icon="fa-solid fa-circle-chevron-left" class="back-icon" />
+    <div></div>
     <div class="page-title">User Profile</div>
     <form class="container" @submit.prevent="submitForm">
       <div class="avatar" :style="{ 'background-image': `url(${imageData})` }" @click="handleClick">
@@ -352,15 +353,13 @@ async function submitForm() {
   overflow: hidden;
   margin-top: 30px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .avatar {
   width: 300px;
   height: 300px;
-  /* border-radius is use to make circle */
   border-radius: 50%;
-  border: solid 1px black;
   display: block;
   cursor: pointer;
   background-size: cover;

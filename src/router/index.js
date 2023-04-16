@@ -6,7 +6,6 @@ import ExploreView from '../views/ExploreView.vue'
 import LandingPageView from '../views/LandingPageView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import StartPlanningView from '../views/StartPlanningView.vue'
-import ProfileDesignView from '../views/ProfileDesignView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,11 +39,6 @@ const router = createRouter({
       path: '/startplanning',
       name: 'startplanning',
       component: StartPlanningView
-    },
-    {
-      path: '/profiledesign',
-      name: 'profiledesign',
-      component: ProfileDesignView
     }
   ],
   linkActiveClass: 'active',

@@ -49,6 +49,7 @@ export default {
   width: 25px;
   height: 25px;
   color: #3e9241;
+  margin-right: 10px;
 }
 
 .success {

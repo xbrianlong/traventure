@@ -1,6 +1,6 @@
 <template>
   <TheHeader />
-  <NavigationBar :placeId="countryId" />
+  <NavigationBar :placeId="itineraryId" />
   <div class="view">
     <GoogleMap v-show="toggle" :placeId="countryId" />
     <div :class="toggle === true ? 'openMap' : 'closeMap'">
@@ -26,11 +26,24 @@ import GoogleMap from '../components/GlobalComponents/GoogleMap.vue'
 import DestinationContainer from '../components/ItineraryPage/DestinationContainer.vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
+import { getDoc, doc } from 'firebase/firestore'
+import { getAuth } from '@firebase/auth'
+import { db } from '../firebase'
+
+const auth = getAuth()
+const user = auth.currentUser.email
 
 const store = useStore()
 const route = useRoute()
 
-const countryId = computed(() => route.params.id)
+const itineraryId = computed(() => route.params.id)
+const countryId = ref('')
+
+const docSnap = await getDoc(doc(db, user, 'userDetails', 'itineraries', itineraryId.value))
+
+if (docSnap.exists()) {
+  countryId.value = docSnap.data().tripCityId
+}
 
 //const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 const input = ref('')

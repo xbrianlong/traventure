@@ -9,13 +9,14 @@
       <template v-for="(trip, index) in trips" :key="index">
         <TripCard
           class="trip-card"
-          :title="`Trip to ${trip.tripCity}`"
-          :startDate="trip.tripStartDate"
-          :endDate="trip.tripEndDate"
+          :title="`Trip to ${trip.tripCityName}`"
+          :startDate="formatDates(trip.tripStartDate)"
+          :endDate="formatDates(trip.tripEndDate)"
           :numPlaces="trip.numPlaces"
-          :imageAlt="trip.imageAlt"
+          :imageAlt="trip.tripCityName"
           :imageSource="trip.imageSource"
           @removeItem="removeItem(index)"
+          @click="routeToItinerary(trip.id)"
         />
       </template>
     </div>
@@ -39,17 +40,23 @@ const trips = ref([])
 const querySnapshot = await getDocs(collection(db, user, 'userDetails', 'itineraries'))
 
 querySnapshot.forEach((doc) => {
-  trips.value.push(doc.data())
+  trips.value.push({ id: doc.id, ...doc.data() })
 })
 
 const createConfirm = useConfirm()
 const createSnackbar = useSnackbar()
 
+//Format dates into string
+function formatDates(datetimeObj) {
+  var date = datetimeObj.toDate()
+  return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+}
+
 async function removeItem(index) {
   try {
     await createConfirm({
       title: 'Confirm Deletion',
-      content: `Are you sure you want to delete Trip to ${trips.value[index].tripCity} ?`,
+      content: `Are you sure you want to delete Trip to ${trips.value[index].tripCityName}?`,
       confirmationText: 'Delete',
       cardProps: {
         width: 500
@@ -80,6 +87,10 @@ async function removeItem(index) {
 
 async function routeToStartPlanning() {
   await router.push({ path: '/startplanning' })
+}
+
+async function routeToItinerary(itineraryId) {
+  await router.push({ path: `/itinerary/${itineraryId}` })
 }
 </script>
 

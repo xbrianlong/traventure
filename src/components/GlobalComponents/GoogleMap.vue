@@ -30,12 +30,15 @@ watch(
   async (ready) => {
     if (ready) {
       var geocoder = new mapRef.value.api.Geocoder()
-      await geocoder.geocode({ placeId: props.placeId }, function (results, status) {
-        if (status == 'OK') {
-          mapRef.value.map.setCenter(results[0].geometry.location)
-          mapRef.value.map.setZoom(12)
-        }
-      })
+
+      if (props.placeId) {
+        await geocoder.geocode({ placeId: props.placeId }, function (results, status) {
+          if (status == 'OK') {
+            mapRef.value.map.setCenter(results[0].geometry.location)
+            mapRef.value.map.setZoom(12)
+          }
+        })
+      }
 
       store.commit('updateMapRef', mapRef)
     }

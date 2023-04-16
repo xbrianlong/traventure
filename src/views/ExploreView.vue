@@ -1,6 +1,6 @@
 <template>
   <TheHeader />
-  <NavigationBar :placeId="countryId" />
+  <NavigationBar :placeId="itineraryId" />
   <div class="view">
     <!-- Map Component -->
     <GoogleMap :placeId="countryId" :pageString="pageString" />
@@ -52,13 +52,28 @@ import ExploreItem from '../components/ExplorePage/ExploreItem.vue'
 import { ref, computed, watch, onUnmounted } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
+import { getDoc, doc } from 'firebase/firestore'
+import { getAuth } from '@firebase/auth'
+import { db } from '../firebase'
+
+const auth = getAuth()
+const user = auth.currentUser.email
 
 const store = useStore()
 const route = useRoute()
 
-const countryId = computed(() => route.params.id)
+const itineraryId = computed(() => route.params.id)
 const mapRef = computed(() => store.getters.getMapRef)
 const showLocationCard = computed(() => store.getters.getLocationCardStatus)
+
+const countryId = ref('')
+
+// Fetch data from itineraryId
+const docSnap = await getDoc(doc(db, user, 'userDetails', 'itineraries', itineraryId.value))
+
+if (docSnap.exists()) {
+  countryId.value = docSnap.data().tripCityId
+}
 
 // Initialize mapRef
 const pageString = ref('Explore')
@@ -110,18 +125,20 @@ watch(
       })
       acObj.value.addListener('place_changed', getPlaceResult)
 
-      //Find country name
-      var request = {
-        placeId: countryId.value,
-        fields: ['name', 'geometry']
-      }
-      const placesDetailsService = new mapRef.value.api.places.PlacesService(mapRef.value.map)
-      await placesDetailsService.getDetails(request, (place, status) => {
-        if (status == 'OK') {
-          countryName.value = place.name
-          locObj.value = place.geometry.location
+      if (countryId.value) {
+        //Find country name
+        var request = {
+          placeId: countryId.value,
+          fields: ['name', 'geometry']
         }
-      })
+        const placesDetailsService = new mapRef.value.api.places.PlacesService(mapRef.value.map)
+        await placesDetailsService.getDetails(request, (place, status) => {
+          if (status == 'OK') {
+            countryName.value = place.name
+            locObj.value = place.geometry.location
+          }
+        })
+      }
     }
   }
 )

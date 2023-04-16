@@ -121,7 +121,7 @@ placesDetailsService.getDetails(request, (place, status) => {
   if (status == 'OK') {
     phoneNum.value = place.formatted_phone_number
     website.value = place.website
-    photo.value = place.photos[0].getUrl()
+    photo.value = place.photos ? place.photos[0].getUrl() : ''
   }
 })
 

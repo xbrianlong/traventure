@@ -1,13 +1,13 @@
 <template>
   <div class="card-wrapper">
     <div class="image-wrapper">
-      <img src="../../assets/images/trip-card-image.jpg" :alt="props.imageAlt" />
+      <img :src="imageSource" :alt="props.imageAlt" />
     </div>
 
     <div class="card-details">
       <div class="card-top">
         <h3 class="title">{{ props.title }}</h3>
-        <font-awesome-icon icon="fa-solid fa-trash" @click="$emit('removeItem')" />
+        <font-awesome-icon icon="fa-solid fa-trash" @click.stop="$emit('removeItem')" />
       </div>
       <div class="card-date-location-wrapper">
         <span class="date">{{ props.startDate }}</span>

@@ -31,7 +31,7 @@ import { GoogleMap } from 'vue3-google-map'
 
 import { getAuth } from '@firebase/auth'
 import { db } from '../firebase'
-import { doc, setDoc } from 'firebase/firestore'
+import { setDoc, addDoc, collection, doc } from 'firebase/firestore'
 
 import router from '@/router'
 
@@ -49,6 +49,7 @@ function getDate(data) {
 }
 const placeId = ref('')
 const placeName = ref('')
+const placePhoto = ref('')
 const dateRef = ref([])
 
 const mapRef = ref(null)
@@ -59,12 +60,34 @@ async function createItinerary() {
   const endDay = dateRef.value[1]
 
   const itineraryData = {
-    tripCity: placeName.value,
-    tripStartDate: `${startDay.getDate()}/${startDay.getMonth()}/${startDay.getFullYear()}`,
-    tripEndDate: `${endDay.getDate()}/${endDay.getMonth()}/${endDay.getFullYear()}`
+    tripCityName: placeName.value,
+    tripCityId: placeId.value,
+    tripStartDate: startDay,
+    tripEndDate: endDay,
+    numPlaces: 0,
+    imageSource: placePhoto.value
   }
-  await setDoc(doc(db, user, 'userDetails', 'itineraries', placeId.value), itineraryData)
-  router.push({ path: `itinerary/${placeId.value}` })
+
+  //Creating doc and sub-collection structure in Firebase
+  var docRef = await addDoc(collection(db, user, 'userDetails/itineraries'), itineraryData)
+
+  const dummyData = { dummy: 0 }
+
+  let currentDate = new Date(startDay)
+
+  while (currentDate <= endDay) {
+    await setDoc(doc(db, `${user}/userDetails/itineraries/${docRef.id}/${currentDate}`, 'dummy'), {
+      dummyData
+    })
+
+    currentDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      currentDate.getDate() + 1
+    )
+  }
+
+  await router.push({ path: `itinerary/${docRef.id}` })
 }
 
 watch(
@@ -74,12 +97,13 @@ watch(
       var input = document.getElementById('country-input')
       acObj.value = await new mapRef.value.api.places.Autocomplete(input, {
         types: ['country', 'locality'],
-        fields: ['place_id', 'name']
+        fields: ['place_id', 'name', 'photos']
       })
       acObj.value.addListener('place_changed', () => {
         var place = acObj.value.getPlace()
         placeId.value = place.place_id
         placeName.value = place.name
+        placePhoto.value = place.photos ? place.photos[0].getUrl() : ''
       })
     }
   }

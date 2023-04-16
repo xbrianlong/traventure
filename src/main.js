@@ -40,8 +40,8 @@ const store = createStore({
     }
   },
   mutations: {
-    uploadExploreData(state, payload) {
-      state.exploreData[payload.category] = payload.data
+    uploadLocationCardData(state, payload) {
+      state.locationCardData = payload
     },
     updateMapRef(state, newMapRef) {
       state.mapRef = newMapRef

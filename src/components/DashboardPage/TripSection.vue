@@ -1,6 +1,10 @@
 <template>
   <div class="section-wrapper">
-    <h2 class="trip">Trips</h2>
+    <div class="trips">
+      <div><h2 class="trip">Trips</h2></div>
+      <v-divider />
+      <div><button class="button" @click="routeToStartPlanning">Add Trip</button></div>
+    </div>
     <div class="card-group">
       <template v-for="(trip, index) in trips" :key="index">
         <TripCard
@@ -25,6 +29,7 @@ import { ref } from 'vue'
 import { getAuth } from '@firebase/auth'
 import { db } from '../../firebase'
 import { getDocs, collection, doc, deleteDoc } from 'firebase/firestore'
+import router from '@/router'
 
 const auth = getAuth()
 const user = auth.currentUser.email
@@ -72,6 +77,10 @@ async function removeItem(index) {
     ;(err) => console.log(err)
   }
 }
+
+async function routeToStartPlanning() {
+  await router.push({ path: '/startplanning' })
+}
 </script>
 
 <style scoped>
@@ -88,9 +97,29 @@ async function removeItem(index) {
 
 .trip {
   font-size: 30px;
+  margin-right: 50px;
 }
 
 .trip-card {
   place-self: center;
+}
+
+.button {
+  background-color: black;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 15px 25px;
+  width: 160px;
+  margin-left: 50px;
+}
+
+.trips {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

@@ -22,12 +22,13 @@ const router = createRouter({
       component: DashboardView
     },
     {
-      path: '/itinerary',
+      path: '/itinerary/:id',
       name: 'ItineraryPage',
-      component: ItineraryView
+      component: ItineraryView,
+      props: true
     },
     {
-      path: '/explore',
+      path: '/explore/:id',
       name: 'ExplorePage',
       component: ExploreView
     },

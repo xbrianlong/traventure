@@ -22,10 +22,8 @@ import { useStore } from 'vuex'
 
 const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 const mapRef = ref(null)
-const locObj = ref(null)
 const props = defineProps(['placeId', 'pageString'])
 const store = useStore()
-//const emit = defineEmits(['fetchService'])
 
 watch(
   () => mapRef.value?.ready,
@@ -35,76 +33,11 @@ watch(
       await geocoder.geocode({ placeId: props.placeId }, function (results, status) {
         if (status == 'OK') {
           mapRef.value.map.setCenter(results[0].geometry.location)
-          locObj.value = results[0].geometry.location
           mapRef.value.map.setZoom(12)
         }
       })
 
       store.commit('updateMapRef', mapRef)
-
-      if (props.pageString == 'Explore') {
-        var service = await new mapRef.value.api.places.PlacesService(mapRef.value.map)
-
-        // Things to do query
-        var toDoRequest = {
-          location: locObj.value,
-          query: 'things to do'
-        }
-
-        service.textSearch(toDoRequest, function (results, status) {
-          if (status == mapRef.value.api.places.PlacesServiceStatus.OK) {
-            store.commit('uploadExploreData', {
-              category: 'Things to Do',
-              data: results
-            })
-          }
-        })
-
-        //Food query
-        var foodRequest = {
-          location: locObj.value,
-          query: 'best food places'
-        }
-
-        await service.textSearch(foodRequest, function (results, status) {
-          if (status == mapRef.value.api.places.PlacesServiceStatus.OK) {
-            store.commit('uploadExploreData', {
-              category: 'Food',
-              data: results
-            })
-          }
-        })
-
-        //Hotel query
-        var hotelRequest = {
-          location: locObj.value,
-          query: 'best hotels'
-        }
-
-        await service.textSearch(hotelRequest, function (results, status) {
-          if (status == mapRef.value.api.places.PlacesServiceStatus.OK) {
-            store.commit('uploadExploreData', {
-              category: 'Hotels',
-              data: results
-            })
-          }
-        })
-
-        //Shopping query
-        var shoppingRequest = {
-          location: locObj.value,
-          query: 'best shopping places'
-        }
-
-        await service.textSearch(shoppingRequest, function (results, status) {
-          if (status == mapRef.value.api.places.PlacesServiceStatus.OK) {
-            store.commit('uploadExploreData', {
-              category: 'Shopping',
-              data: results
-            })
-          }
-        })
-      }
     }
   }
 )

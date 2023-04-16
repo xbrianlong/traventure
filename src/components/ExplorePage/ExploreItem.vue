@@ -106,9 +106,6 @@ const phoneNum = ref('')
 const website = ref('')
 const photo = ref('')
 
-const like = ref(false)
-const favourite = ref(false)
-
 const mapRef = computed(() => store.getters.getMapRef)
 
 //const toggleLike = () => (like.value = !like.value)

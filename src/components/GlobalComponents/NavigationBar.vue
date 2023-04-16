@@ -2,16 +2,7 @@
   <div>
     <nav>
       <ul>
-        <RouterLink to="/dashboard">
-          <div class="nav-wrapper">
-            <li>
-              <font-awesome-icon icon="fa-solid fa-bars" class="nav-icon" />
-              <span class="nav-item">Dashboard</span>
-            </li>
-          </div>
-        </RouterLink>
-
-        <RouterLink to="/itinerary">
+        <RouterLink :to="`/itinerary/${props.placeId}`">
           <div class="nav-wrapper">
             <li>
               <font-awesome-icon icon="fa-solid fa-calendar-days" class="nav-icon" />
@@ -20,7 +11,7 @@
           </div>
         </RouterLink>
 
-        <RouterLink to="/explore">
+        <RouterLink :to="`/explore/${props.placeId}`">
           <div class="nav-wrapper">
             <li>
               <font-awesome-icon icon="fa-solid fa-compass" class="nav-icon" />
@@ -33,13 +24,14 @@
   </div>
 </template>
 
-
-
 <script setup>
 import { RouterLink } from 'vue-router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCompass, faBars, faCalendarDays } from '@fortawesome/free-solid-svg-icons'
+
 library.add(faCompass, faBars, faCalendarDays)
+
+const props = defineProps(['placeId'])
 </script>
 
 <style scoped>

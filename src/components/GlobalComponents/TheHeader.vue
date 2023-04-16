@@ -82,7 +82,7 @@ const username = computed(() => {
 
 .logo-wrapper img {
   object-fit: cover;
-  height: 200px;
+  height: auto;
   width: 200px;
 }
 </style>

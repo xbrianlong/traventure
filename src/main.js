@@ -33,7 +33,6 @@ const vuetify = createVuetify({
 const store = createStore({
   state() {
     return {
-      exploreData: {},
       mapRef: null,
       locationCardData: {},
       showLocationCard: false,
@@ -53,17 +52,11 @@ const store = createStore({
     closeLocationCard(state) {
       state.showLocationCard = false
     },
-    uploadLocationCardData(state, data) {
-      state.locationCardData = data
-    },
     addTempMarker(state, marker) {
       state.tempMarker = marker
     }
   },
   getters: {
-    getExploreData(state) {
-      return state.exploreData
-    },
     getMapRef(state) {
       return state.mapRef
     },

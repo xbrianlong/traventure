@@ -1,7 +1,6 @@
 <template>
   <TheHeader />
-  <NavigationBar />
-  <div class="view" id="dashboard-view">
+  <div id="dashboard-view">
     <DashboardFeatured />
     <DashboardTitle />
     <Suspense>
@@ -14,7 +13,6 @@
 
 <script setup>
 import TheHeader from '../components/GlobalComponents/TheHeader.vue'
-import NavigationBar from '../components/GlobalComponents/NavigationBar.vue'
 import DashboardFeatured from '../components/DashboardPage/DashboardFeatured.vue'
 import DashboardTitle from '../components/DashboardPage/DashboardTitle.vue'
 import TripSection from '../components/DashboardPage/TripSection.vue'
@@ -22,6 +20,10 @@ import TripSection from '../components/DashboardPage/TripSection.vue'
 
 <style>
 #dashboard-view {
+  position: relative;
   padding: 30px 60px;
+  top: var(--header-height);
+  margin-left: 6%;
+  margin-right: 6%;
 }
 </style>

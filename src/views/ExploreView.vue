@@ -1,15 +1,15 @@
 <template>
   <TheHeader />
-  <NavigationBar />
+  <NavigationBar :placeId="countryId" />
   <div class="view">
     <!-- Map Component -->
-    <GoogleMap placeId="ChIJdZOLiiMR2jERxPWrUs9peIg" :pageString="pageString" />
+    <GoogleMap :placeId="countryId" :pageString="pageString" />
 
     <!-- Explore Subheader -->
     <div class="subheader pt-3 pb-0 mx-0 px-0">
       <v-row class="pa-0 ma-0">
         <v-col>
-          <p class="px-5 text-h3 font-weight-bold">Singapore</p>
+          <p class="px-5 text-h3 font-weight-bold">{{ countryName }}</p>
         </v-col>
         <v-col>
           <div class="input-container">
@@ -51,10 +51,12 @@ import ExploreList from '../components/ExplorePage/ExploreList.vue'
 import ExploreItem from '../components/ExplorePage/ExploreItem.vue'
 import { ref, computed, watch, onUnmounted } from 'vue'
 import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
 
 const store = useStore()
+const route = useRoute()
 
-const exploreData = computed(() => store.getters.getExploreData)
+const countryId = computed(() => route.params.id)
 const mapRef = computed(() => store.getters.getMapRef)
 const showLocationCard = computed(() => store.getters.getLocationCardStatus)
 
@@ -65,7 +67,12 @@ const pageString = ref('Explore')
 const toggleViewAll = ref(false)
 const category = ref('')
 
+// Fetched data
+const exploreData = ref({})
+
 const acObj = ref(null)
+const locObj = ref(null)
+const countryName = ref('')
 
 function viewAll(placeCategory) {
   toggleViewAll.value = !toggleViewAll.value
@@ -83,8 +90,9 @@ function toggle() {
 
 watch(
   () => mapRef.value,
-  (newVal) => {
+  async (newVal) => {
     if (newVal) {
+      //Autocomplete widget
       var input = document.getElementById('search-input')
       acObj.value = new mapRef.value.api.places.Autocomplete(input, {
         bounds: mapRef.value.map.getBounds(),
@@ -101,9 +109,77 @@ watch(
         ]
       })
       acObj.value.addListener('place_changed', getPlaceResult)
+
+      //Find country name
+      var request = {
+        placeId: countryId.value,
+        fields: ['name', 'geometry']
+      }
+      const placesDetailsService = new mapRef.value.api.places.PlacesService(mapRef.value.map)
+      await placesDetailsService.getDetails(request, (place, status) => {
+        if (status == 'OK') {
+          countryName.value = place.name
+          locObj.value = place.geometry.location
+        }
+      })
     }
   }
 )
+
+watch(locObj, async (value) => {
+  if (value) {
+    //Fetch data
+    var textSearchService = await new mapRef.value.api.places.PlacesService(mapRef.value.map)
+
+    // Things to do query
+    var toDoRequest = {
+      location: locObj.value,
+      query: 'things to do'
+    }
+
+    textSearchService.textSearch(toDoRequest, function (results, status) {
+      if (status == mapRef.value.api.places.PlacesServiceStatus.OK) {
+        exploreData.value['Things to Do'] = results
+      }
+    })
+
+    //Food query
+    var foodRequest = {
+      location: locObj.value,
+      query: 'best food places'
+    }
+
+    await textSearchService.textSearch(foodRequest, function (results, status) {
+      if (status == mapRef.value.api.places.PlacesServiceStatus.OK) {
+        exploreData.value['Food'] = results
+      }
+    })
+
+    //Hotel query
+    var hotelRequest = {
+      location: locObj.value,
+      query: 'best hotels'
+    }
+
+    await textSearchService.textSearch(hotelRequest, function (results, status) {
+      if (status == mapRef.value.api.places.PlacesServiceStatus.OK) {
+        exploreData.value['Hotels'] = results
+      }
+    })
+
+    //Shopping query
+    var shoppingRequest = {
+      location: locObj.value,
+      query: 'best shopping places'
+    }
+
+    await textSearchService.textSearch(shoppingRequest, function (results, status) {
+      if (status == mapRef.value.api.places.PlacesServiceStatus.OK) {
+        exploreData.value['Shopping'] = results
+      }
+    })
+  }
+})
 
 function getPlaceResult() {
   var place = acObj.value.getPlace()

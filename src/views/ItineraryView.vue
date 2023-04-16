@@ -1,8 +1,8 @@
 <template>
   <TheHeader />
-  <NavigationBar />
+  <NavigationBar :placeId="countryId" />
   <div class="view">
-    <GoogleMap v-show="toggle" placeId="ChIJdZOLiiMR2jERxPWrUs9peIg" />
+    <GoogleMap v-show="toggle" :placeId="countryId" />
     <div :class="toggle === true ? 'openMap' : 'closeMap'">
       <ItineraryHeader @toggleMap="toggleMap" :changeIcon="toggle" />
       <div class="input-container">
@@ -25,8 +25,12 @@ import ItineraryHeader from '../components/ItineraryPage/ItineraryHeader.vue'
 import GoogleMap from '../components/GlobalComponents/GoogleMap.vue'
 import DestinationContainer from '../components/ItineraryPage/DestinationContainer.vue'
 import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
 
 const store = useStore()
+const route = useRoute()
+
+const countryId = computed(() => route.params.id)
 
 //const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 const input = ref('')

@@ -33,7 +33,7 @@ import { useStore } from 'vuex'
 const store = useStore()
 
 const props = defineProps(['placeDetails'])
-const photoUrl = ref(props.placeDetails.photos[0].getUrl())
+const photoUrl = ref(props.placeDetails.photos ? props.placeDetails.photos[0].getUrl() : '')
 const name = ref(props.placeDetails.name)
 const rating = ref(props.placeDetails.rating)
 

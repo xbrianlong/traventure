@@ -106,9 +106,6 @@ const phoneNum = ref('')
 const website = ref('')
 const photo = ref('')
 
-const like = ref(false)
-const favourite = ref(false)
-
 const mapRef = computed(() => store.getters.getMapRef)
 
 //const toggleLike = () => (like.value = !like.value)
@@ -124,7 +121,7 @@ placesDetailsService.getDetails(request, (place, status) => {
   if (status == 'OK') {
     phoneNum.value = place.formatted_phone_number
     website.value = place.website
-    photo.value = place.photos[0].getUrl()
+    photo.value = place.photos ? place.photos[0].getUrl() : ''
   }
 })
 

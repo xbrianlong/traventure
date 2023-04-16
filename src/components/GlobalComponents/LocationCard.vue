@@ -15,7 +15,7 @@
 
       <div class="location-image-wrapper">
         <img
-          :src="locationCardData.photos[0].getUrl() ? locationCardData.photos[0].getUrl() : ''"
+          :src="locationCardData.photos ? locationCardData.photos[0].getUrl() : ''"
           alt="location-item-image"
         />
       </div>

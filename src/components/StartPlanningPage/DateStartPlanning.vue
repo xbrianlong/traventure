@@ -1,5 +1,5 @@
 <template>
-  <div class="date-container">
+  <div class="date-container" id="date-text-field">
     <span class="dates">Dates</span>
     <VueDatePicker
       :model-value="date"
@@ -11,6 +11,8 @@
       :format="formatDate"
       :enable-time-picker="false"
       class="dp"
+      :offset="20"
+      max-range="30"
     >
       <template #input-icon>
         <svg></svg>
@@ -62,5 +64,6 @@ function formatDate(date) {
 .dp {
   width: 90%;
   display: inline-block;
+  line-height: initial;
 }
 </style>

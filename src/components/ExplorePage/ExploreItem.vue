@@ -75,7 +75,7 @@
             </v-col>
           </v-row>
 
-          <!-- website (havent implement if no website how) -->
+          <!-- website -->
           <v-row class="px-3 py-0 align-center">
             <v-col class="px-2 py-0 flex-grow-0 flex-shrink-0">
               <v-icon class="icon" icon="mdi-web"></v-icon>

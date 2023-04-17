@@ -4,13 +4,22 @@
   <div class="view">
     <GoogleMap v-show="toggle" :placeId="countryId" />
     <div :class="toggle === true ? 'openMap' : 'closeMap'">
-      <ItineraryHeader @toggleMap="toggleMap" :changeIcon="toggle" />
+      <ItineraryHeader
+        @toggleMap="toggleMap"
+        :changeIcon="toggle"
+        :title="countryName"
+        :cover="coverImage"
+      />
       <div class="input-container">
         <v-icon icon="mdi-magnify" id="icon" size="large" />
-        <input type="text" id="search-input" placeholder="Search" />
+        <input type="text" id="search-input" placeholder="Search and add trip to day" />
       </div>
       <div>{{ input }}</div>
-      <DestinationContainer />
+      <DestinationContainer
+        v-if="renderTrips"
+        :itineraryId="itineraryId"
+        @update="onUpdateEvent($event)"
+      />
     </div>
   </div>
   <RouterView />
@@ -20,13 +29,13 @@
 import TheHeader from '../components/GlobalComponents/TheHeader.vue'
 import NavigationBar from '../components/GlobalComponents/NavigationBar.vue'
 import { RouterView } from 'vue-router'
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, nextTick } from 'vue'
 import ItineraryHeader from '../components/ItineraryPage/ItineraryHeader.vue'
 import GoogleMap from '../components/GlobalComponents/GoogleMap.vue'
 import DestinationContainer from '../components/ItineraryPage/DestinationContainer.vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
-import { getDoc, doc } from 'firebase/firestore'
+import { getDoc, doc, addDoc, collection, updateDoc } from 'firebase/firestore'
 import { getAuth } from '@firebase/auth'
 import { db } from '../firebase'
 
@@ -38,11 +47,15 @@ const route = useRoute()
 
 const itineraryId = computed(() => route.params.id)
 const countryId = ref('')
+const countryName = ref('')
+const coverImage = ref('')
 
 const docSnap = await getDoc(doc(db, user, 'userDetails', 'itineraries', itineraryId.value))
 
 if (docSnap.exists()) {
   countryId.value = docSnap.data().tripCityId
+  countryName.value = docSnap.data().tripCityName
+  coverImage.value = docSnap.data().imageSource
 }
 
 //const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
@@ -71,9 +84,40 @@ watch(
   }
 )
 
-function getPlaceResult() {
+// Add doc upon search complete
+const date = ref(new Date())
+
+function onUpdateEvent(newDate) {
+  date.value = newDate
+}
+
+// Force-render upon updates
+const renderTrips = ref(true)
+
+const forceRender = async () => {
+  renderTrips.value = false
+  await nextTick()
+  renderTrips.value = true
+}
+
+async function getPlaceResult() {
   var place = acObj.value.getPlace()
-  console.log(place.place_id)
+  const docSnap = await getDoc(doc(db, user, 'userDetails', 'itineraries', itineraryId.value))
+  if (docSnap.exists()) {
+    var currentNumPlaces = docSnap.data().numPlaces
+
+    var placeObject = { placeId: place.place_id, order: currentNumPlaces + 1, dummy: false }
+
+    await addDoc(
+      collection(db, user, 'userDetails', 'itineraries', `${itineraryId.value}`, `${date.value}`),
+      placeObject
+    )
+    await updateDoc(doc(db, user, 'userDetails', 'itineraries', itineraryId.value), {
+      numPlaces: currentNumPlaces + 1
+    })
+
+    await forceRender()
+  }
 }
 </script>
 
@@ -90,7 +134,6 @@ function getPlaceResult() {
   position: relative;
   background-color: var(--light-grey-primary);
   padding: 0px 10px 0px 25px;
-  border-radius: 10px;
   line-height: 52px;
 }
 

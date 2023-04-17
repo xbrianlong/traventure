@@ -16,7 +16,7 @@
       </div>
       <div>{{ input }}</div>
       <DestinationContainer
-        v-if="renderTrips"
+        :renderComponent="renderTrips"
         :itineraryId="itineraryId"
         @update="onUpdateEvent($event)"
       />

@@ -19,13 +19,15 @@
       </v-col>
     </v-row>
     <!-- Need to iterate through the dates and iterate within each date -->
-    <div v-for="(destItem, index) in orderedDestItems" :key="index" class="destItems">
-      <DestinationItem
-        :docId="destItem.id"
-        :order="destItem.order"
-        :placeId="destItem.placeId"
-        @removeItem="removeItem($event)"
-      />
+    <div v-if="renderComponent">
+      <div v-for="(destItem, index) in orderedDestItems" :key="index" class="destItems">
+        <DestinationItem
+          :docId="destItem.id"
+          :order="destItem.order"
+          :placeId="destItem.placeId"
+          @removeItem="removeItem($event)"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -47,7 +49,7 @@ import {
   updateDoc
 } from 'firebase/firestore'
 
-const props = defineProps(['itineraryId'])
+const props = defineProps(['itineraryId', 'renderComponent'])
 const emit = defineEmits(['update'])
 
 const auth = getAuth()
@@ -129,6 +131,15 @@ async function fetchItineraryInfo() {
   })
 }
 
+//Force re-render component
+const renderComponent = ref(true)
+
+const forceRender = async () => {
+  renderComponent.value = false
+  await nextTick()
+  renderComponent.value = true
+}
+
 //Fetch data on INITIAL RENDER
 await fetchItineraryInfo()
 
@@ -155,6 +166,36 @@ watch(
       querySnapshot.forEach((doc) => {
         destItems.value.push({ id: doc.id, ...doc.data() })
       })
+
+      await forceRender()
+    }
+  }
+)
+
+watch(
+  () => props.renderComponent,
+  async (val) => {
+    if (!val) {
+      const q = query(
+        collection(
+          db,
+          user,
+          'userDetails',
+          'itineraries',
+          `${props.itineraryId}`,
+          `${selectedDate.value}`
+        ),
+        where('dummy', '==', false)
+      )
+
+      const querySnapshot = await getDocs(q)
+
+      destItems.value = []
+      querySnapshot.forEach((doc) => {
+        destItems.value.push({ id: doc.id, ...doc.data() })
+      })
+
+      await forceRender()
     }
   }
 )
@@ -192,8 +233,27 @@ async function removeItem({ docId, order }) {
     })
   }
 
+  const q = query(
+    collection(
+      db,
+      user,
+      'userDetails',
+      'itineraries',
+      `${props.itineraryId}`,
+      `${selectedDate.value}`
+    ),
+    where('dummy', '==', false)
+  )
+
+  const querySnapshot = await getDocs(q)
+
+  destItems.value = []
+  querySnapshot.forEach((doc) => {
+    destItems.value.push({ id: doc.id, ...doc.data() })
+  })
+
   // Force render to show updated itinerary
-  await fetchItineraryInfo()
+  await forceRender()
 }
 </script>
 

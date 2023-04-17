@@ -84,7 +84,6 @@ async function fetchPlaceDetails() {
   var placesDetailsService = new mapRef.value.api.places.PlacesService(mapRef.value.map)
   placesDetailsService.getDetails(request, (place, status) => {
     if (status == 'OK') {
-      console.log('hello')
       placeName.value = place.name ? place.name : ''
       phoneNum.value = place.formatted_phone_number ? place.formatted_phone_number : ''
       website.value = place.website ? place.website : ''

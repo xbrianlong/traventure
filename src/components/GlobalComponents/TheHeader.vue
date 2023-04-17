@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth'
 import { getDoc, doc } from 'firebase/firestore'
@@ -60,7 +60,18 @@ const socialUserInitials = computed(() => {
   }
   return ''
 })
+
 const regUserInitials = ref('')
+
+// const docSnap = await getDoc(doc(db, currentUser.value.email, 'userDetails'))
+// if (docSnap.exists()) {
+//   var regUsername = docSnap.data().username
+//   regUserInitials.value = regUsername
+//     .split(' ')
+//     .map((word) => word.charAt(0).toUpperCase())
+//     .join('')
+//   console.log(regUserInitials.value)
+// }
 
 async function logOut() {
   signOut(auth)

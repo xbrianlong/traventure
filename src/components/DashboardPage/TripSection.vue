@@ -70,14 +70,12 @@ async function removeItem(index) {
     })
 
     createSnackbar({
-      text: `Trip to ${trips.value[index].tripCity} is deleted`,
+      text: `Trip to ${trips.value[index].tripCityName} is deleted`,
       snackbarProps: {
         timeout: 1000
       }
     })
-    await deleteDoc(
-      doc(db, user, 'userDetails', 'itineraries', trips.value[index].tripCity.toLowerCase())
-    )
+    await deleteDoc(doc(db, user, 'userDetails', 'itineraries', trips.value[index].id))
     trips.value.splice(index, 1)
   } catch {
     // Actions after clicking Cancel

@@ -19,10 +19,10 @@
     <div class="header-details-wrapper">
       <ItineraryTitle :title="props.title" />
 
-      <button class="share-button">
+      <!-- <button class="share-button">
         <span>Share Itinerary</span>
         <font-awesome-icon icon="fa-solid fa-link" />
-      </button>
+      </button> -->
     </div>
   </div>
 </template>

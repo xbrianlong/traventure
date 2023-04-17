@@ -38,7 +38,6 @@ import { useRoute } from 'vue-router'
 import { getDoc, doc, addDoc, collection, updateDoc } from 'firebase/firestore'
 import { getAuth } from '@firebase/auth'
 import { db } from '../firebase'
-import router from '@/router'
 
 const auth = getAuth()
 const user = auth.currentUser.email

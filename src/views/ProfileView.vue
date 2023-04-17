@@ -1,7 +1,11 @@
 <template>
   <TheHeader />
   <div class="view">
-    <font-awesome-icon icon="fa-solid fa-circle-chevron-left" class="back-icon" />
+    <font-awesome-icon
+      icon="fa-solid fa-circle-chevron-left"
+      class="back-icon"
+      @click="handleBackNav"
+    />
     <div></div>
     <div class="page-title">User Profile</div>
     <form class="container" @submit.prevent="submitForm">
@@ -99,8 +103,13 @@ import { doc, setDoc } from 'firebase/firestore'
 import SnackBar from '../components/ProfilePage/SnackBar.vue'
 import { getDoc } from '@firebase/firestore'
 import { ref as refer, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import router from '@/router'
 
 library.add(faCircleChevronLeft)
+
+function handleBackNav() {
+  router.back()
+}
 
 async function getUserDetails(user) {
   const docRef = doc(db, user, 'userDetails')
@@ -345,6 +354,7 @@ async function submitForm() {
 .page-title {
   font-size: 30px;
   font-weight: bold;
+  padding-top: 22px;
 }
 
 .container {
@@ -354,6 +364,7 @@ async function submitForm() {
   margin-top: 30px;
   display: flex;
   justify-content: space-around;
+  padding: 2%;
 }
 
 .avatar {
@@ -423,7 +434,7 @@ async function submitForm() {
   height: 30px;
   position: fixed;
   left: 20px;
-  top: calc(var(--header-height) + 15px);
+  top: calc(var(--header-height) + 30px);
 }
 
 .back-icon:hover {

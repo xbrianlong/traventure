@@ -71,14 +71,15 @@ async function createItinerary() {
   //Creating doc and sub-collection structure in Firebase
   var docRef = await addDoc(collection(db, user, 'userDetails/itineraries'), itineraryData)
 
-  const dummyData = { dummy: 0 }
+  const dummyData = { dummy: true }
 
-  let currentDate = new Date(startDay)
+  let currentDate = new Date(startDay.getFullYear(), startDay.getMonth(), startDay.getDate())
 
   while (currentDate <= endDay) {
-    await setDoc(doc(db, `${user}/userDetails/itineraries/${docRef.id}/${currentDate}`, 'dummy'), {
+    await setDoc(
+      doc(db, `${user}/userDetails/itineraries/${docRef.id}/${currentDate}`, 'dummy'),
       dummyData
-    })
+    )
 
     currentDate = new Date(
       currentDate.getFullYear(),

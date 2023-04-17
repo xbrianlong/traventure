@@ -1,7 +1,7 @@
 <template>
   <div class="header-title-wrapper">
     <!-- change this to taking in placeID to display city name -->
-    <span class="header-title-text">Trip to Singapore</span>
+    <span class="header-title-text">Trip to {{ props.title }}</span>
     <!-- <input class="header-title-text" v-model="titleInput" placeholder="Add Itinerary Title"/> -->
   </div>
 </template>
@@ -10,6 +10,8 @@
 import { ref, watch } from 'vue'
 
 const titleInput = ref('')
+
+const props = defineProps(['title'])
 
 // write newTitleInput into firebase to update
 watch(titleInput, (newTitleInput) => {

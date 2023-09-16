@@ -3,7 +3,7 @@ Traventure is a travel planning application that aims to provide higher ease of 
 </p>
 
 <p align="center">
-  [View Demo](https://bt3103-72223.web.app/)
+  <a href="https://bt3103-72223.web.app/">View Demo</a>
 </p>
 
 <p align="center">
